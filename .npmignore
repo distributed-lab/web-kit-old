@@ -1,7 +1,7 @@
 /.github/
 /.vscode/
 /node_modules/
-/build/
+packages/**/node_modules/
 /tmp/
 .idea/*
 /docs/
@@ -22,7 +22,6 @@ yarn-debug.log*
 yarn-error.log*
 babel-debug.log
 
-.babelrc
 .browserslistrc
 .editorconfig
 .eslintignore
@@ -31,6 +30,8 @@ babel-debug.log
 jest.config.js
 .prettierrc
 tsconfig.json
+tsconfig.base.json
+lerna.json
 /scripts/
 esbuild.js
 babel.config.json
