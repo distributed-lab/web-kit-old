@@ -20,7 +20,7 @@
   "typedoc": {
     "entryPoint": "./src/index.ts",
     "readmeFile": "./README.md",
-    "displayName": "DL | Utils"
+    "displayName": "@dl/utils"
   },
   "sideEffects": false,
   "scripts": {
