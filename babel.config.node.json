@@ -1,0 +1,35 @@
+{
+  "sourceMaps": "inline",
+  "minified": true,
+  "comments": false,
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": "cjs"
+      }
+    ],
+    "@babel/preset-typescript"
+  ],
+  "plugins": [
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "regenerator": true
+      }
+    ],
+    "@babel/plugin-proposal-class-properties",
+    [
+      "babel-plugin-root-import",
+      {
+        "rootPathSuffix": "./src",
+        "rootPathPrefix": "@/"
+      }
+    ]
+  ],
+  "ignore": [
+    "**/*.test.ts",
+    "src/test",
+    "src/browser.ts"
+  ]
+}
