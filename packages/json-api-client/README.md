@@ -1,4 +1,4 @@
-# @dl/json-api
+# @dl/json-api-client
 JSON API client
 
 ## Changelog

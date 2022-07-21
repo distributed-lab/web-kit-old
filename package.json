@@ -25,6 +25,7 @@
   },
   "scripts": {
     "lint": "eslint packages/* --ext .ts,.tsx --fix",
+    "build": "lerna run build",
     "docs": "typedoc --options typedoc.json"
   },
   "devDependencies": {

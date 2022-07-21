@@ -1,15 +1,15 @@
 {
-  "name": "@dl/utils",
+  "name": "@dl/json-api-client",
+  "description": "API Caller for JSON API",
   "version": "1.0.0",
-  "description": "Typescript-base utils for Distributed Lab projects",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
-  "browser": "./lib/utils.min.js",
-  "unpkg": "./lib/utils.min.js",
+  "browser": "./lib/json-api-client.min.js",
+  "unpkg": "./lib/json-api-client.min.js",
   "types": "./lib/types/index.d.ts",
   "exports": {
     ".": {
@@ -20,7 +20,7 @@
   "typedoc": {
     "entryPoint": "./src/index.ts",
     "readmeFile": "./README.md",
-    "displayName": "DL | Utils"
+    "displayName": "DL | JSON API Client"
   },
   "sideEffects": false,
   "scripts": {
