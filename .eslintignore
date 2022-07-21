@@ -1,0 +1,13 @@
+build/*.js
+dist/*.js
+dist-browser/*.js
+config/*.js
+scripts/*.js
+playground
+*.schema.js
+index.html
+*.md
+*.config.js
+.eslintrc.js
+/dist/
+esbuild.js

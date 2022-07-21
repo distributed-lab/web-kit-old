@@ -1,0 +1,12 @@
+{
+  "extends": "./babel.config.base",
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "modules": "cjs"
+      }
+    ],
+    "@babel/preset-typescript"
+  ]
+}
