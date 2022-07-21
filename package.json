@@ -20,7 +20,22 @@
     "url": "https://github.com/distributed-lab/web-kit/issues"
   },
   "homepage": "https://github.com/distributed-lab/web-kit",
+  "gitHooks": {
+    "pre-commit": "yarn lint && lerna run type-check"
+  },
+  "scripts": {
+    "lint": "eslint packages/* --ext .ts,.tsx --fix",
+    "docs": "typedoc --options typedoc.json"
+  },
   "devDependencies": {
-    "lerna": "^5.1.8"
+    "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "@typescript-eslint/parser": "^5.30.7",
+    "eslint": "^8.20.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "lerna": "^5.1.8",
+    "prettier": "^2.7.1",
+    "typedoc": "^0.23.8",
+    "yorkie": "^2.0.0"
   }
 }

@@ -19,5 +19,19 @@
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-  }
+    "paths": {
+      "@dl/*": [
+        "packages/*/src/index.ts"
+      ]
+    }
+  },
+  "references": [
+    {
+      "path": "packages/json-api"
+    },
+    {
+      "path": "packages/utils"
+    }
+  ],
+  "exclude": ["node_modules", "lib", "*.d.ts"],
 }

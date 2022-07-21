@@ -1,5 +1,5 @@
 import { t } from '@/log'
 
-t('hello from json api')
+t('hello from utils')
 
 export * from '@/log'

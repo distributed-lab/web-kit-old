@@ -1,7 +1,7 @@
 {
-  "name": "@dl/json-api",
-  "description": "API Caller for JSON API",
+  "name": "@dl/utils",
   "version": "1.0.0",
+  "description": "Typescript-base utils for Distributed Lab projects",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -20,7 +20,7 @@
   "typedoc": {
     "entryPoint": "./src/index.ts",
     "readmeFile": "./README.md",
-    "displayName": "DL | JSON API Caller"
+    "displayName": "DL | Utils"
   },
   "sideEffects": false,
   "scripts": {
