@@ -1,0 +1,26 @@
+{
+  "name": "web-kit",
+  "author": "Distributed Lab",
+  "license": "MIT",
+  "private": true,
+  "keywords": [
+    "sdk",
+    "distributed lan",
+    "opensource"
+  ],
+  "description": "Front-end web kit for Distributed Lab projects",
+  "workspaces": [
+    "packages/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/distributed-lab/web-kit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/distributed-lab/web-kit/issues"
+  },
+  "homepage": "https://github.com/distributed-lab/web-kit",
+  "devDependencies": {
+    "lerna": "^5.1.8"
+  }
+}
