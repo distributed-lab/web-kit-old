@@ -1,6 +1,6 @@
 {
   "name": "@dl/utils",
-  "description": "Utils for working with big numbers and dates",
+  "description": "Typescript-base utils for Distributed Lab projects",
   "version": "1.0.0",
   "license": "MIT",
   "publishConfig": {
@@ -8,8 +8,8 @@
   },
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
-  "browser": "./lib/json-api-client.min.js",
-  "unpkg": "./lib/json-api-client.min.js",
+  "browser": "./lib/utils.min.js",
+  "unpkg": "./lib/utils.min.js",
   "types": "./lib/types/index.d.ts",
   "exports": {
     ".": {

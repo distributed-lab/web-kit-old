@@ -10,7 +10,7 @@ const stdLibBrowser = require('node-stdlib-browser')
     bundle: true,
     minify: true,
     sourcemap: 'external',
-    outfile: 'lib/json-api-client.min.js',
+    outfile: 'lib/utils.min.js',
     inject: [require.resolve('node-stdlib-browser/helpers/esbuild/shim')],
     define: {
       global: 'global',
