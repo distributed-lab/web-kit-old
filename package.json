@@ -26,7 +26,9 @@
   "scripts": {
     "lint": "eslint packages/* --ext .ts,.tsx --fix",
     "build": "lerna run build",
-    "docs": "typedoc --options typedoc.json"
+    "docs": "typedoc --options typedoc.json",
+    "test": "jest --verbose true",
+    "test:watch": "jest --watch"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.30.7",
@@ -37,6 +39,9 @@
     "lerna": "^5.1.8",
     "prettier": "^2.7.1",
     "typedoc": "^0.23.8",
-    "yorkie": "^2.0.0"
+    "yorkie": "^2.0.0",
+    "@types/jest": "^26.0.21",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.4"
   }
 }
