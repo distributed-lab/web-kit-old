@@ -12,6 +12,5 @@ module.exports = {
   },
   moduleNameMapper: {
     "^@/(.*)": "<rootDir>/src/$1",
-    "^lodash-es$": "lodash"
   },
 }

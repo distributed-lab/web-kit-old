@@ -1,5 +1,5 @@
-# @dl/json-api-client
-JSON API client
+# @dl/utils
+Typescript-based utils for Distributed Lab projects
 
 ## Changelog
 All notable changes to this project will be documented in this file.

@@ -1,6 +1,8 @@
 import { BigNumber } from 'bignumber.js'
 
-const ROUNDING_MODES = {
+type RoundingMode = BigNumber.RoundingMode
+
+const ROUNDING_MODES: Record<string, RoundingMode> = {
   ROUND_UP: 0,
   ROUND_DOWN: 1,
   ROUND_CEIL: 2,
@@ -10,7 +12,7 @@ const ROUNDING_MODES = {
   ROUND_HALF_EVEN: 6,
   ROUND_HALF_CEIL: 7,
   ROUND_HALF_FLOOR: 8,
-}
+} as const
 
 const ONE = 1000000
 const DECIMAL_PLACES = 2
@@ -23,12 +25,12 @@ export class MathUtil {
   static add(
     a: string,
     b: string,
-    ROUND_TYPE = ROUNDING_MODES.ROUND_UP,
+    ROUND_TYPE: RoundingMode = ROUNDING_MODES.ROUND_UP,
     DECIMALS = DECIMAL_PLACES,
   ): string {
     if (!this._isValidParams('add', a, b)) return '0'
 
-    BigNumber.config({ ROUNDING_MODE: ROUND_TYPE as BigNumber.RoundingMode })
+    BigNumber.config({ ROUNDING_MODE: ROUND_TYPE })
     BigNumber.config({ DECIMAL_PLACES: DECIMALS })
 
     const one = new BigNumber(a)
@@ -41,12 +43,12 @@ export class MathUtil {
   static subtract(
     a: string,
     b: string,
-    ROUND_TYPE = ROUNDING_MODES.ROUND_UP,
+    ROUND_TYPE: RoundingMode = ROUNDING_MODES.ROUND_UP,
     DECIMALS = DECIMAL_PLACES,
   ): string {
     if (!this._isValidParams('subtract', a, b)) return '0'
 
-    BigNumber.config({ ROUNDING_MODE: ROUND_TYPE as BigNumber.RoundingMode })
+    BigNumber.config({ ROUNDING_MODE: ROUND_TYPE })
     BigNumber.config({ DECIMAL_PLACES: DECIMALS })
 
     const one = new BigNumber(a)
@@ -59,12 +61,12 @@ export class MathUtil {
   static multiply(
     a: string,
     b: string,
-    ROUND_TYPE = ROUNDING_MODES.ROUND_UP,
+    ROUND_TYPE: RoundingMode = ROUNDING_MODES.ROUND_UP,
     DECIMALS = 0,
   ): string {
     if (!this._isValidParams('big-multiply', a, b)) return '0'
 
-    BigNumber.config({ ROUNDING_MODE: ROUND_TYPE as BigNumber.RoundingMode })
+    BigNumber.config({ ROUNDING_MODE: ROUND_TYPE })
     BigNumber.config({ DECIMAL_PLACES: DECIMALS })
 
     const mul1 = new BigNumber(new BigNumber(a).times(new BigNumber(ONE)))
@@ -82,12 +84,12 @@ export class MathUtil {
   static divide(
     a: string,
     b: string,
-    ROUND_TYPE = ROUNDING_MODES.ROUND_UP,
+    ROUND_TYPE: RoundingMode = ROUNDING_MODES.ROUND_UP,
     DECIMALS = DECIMAL_PLACES,
   ): string {
     if (!this._isValidParams('big-divide', a, b)) return '0'
 
-    BigNumber.config({ ROUNDING_MODE: ROUND_TYPE as BigNumber.RoundingMode })
+    BigNumber.config({ ROUNDING_MODE: ROUND_TYPE })
     BigNumber.config({ DECIMAL_PLACES: DECIMALS })
 
     const num = new BigNumber(new BigNumber(a).times(new BigNumber(ONE)))
@@ -114,11 +116,11 @@ export class MathUtil {
     value: string,
     fmt?: BigNumber.Format,
     DECIMALS = DECIMAL_PLACES,
-    ROUND_TYPE = ROUNDING_MODES.ROUND_UP,
+    ROUND_TYPE: RoundingMode = ROUNDING_MODES.ROUND_UP,
   ) {
     return new BigNumber(value).toFormat(
       DECIMALS,
-      ROUND_TYPE as BigNumber.RoundingMode,
+      ROUND_TYPE,
       fmt,
     )
   }
@@ -134,7 +136,7 @@ export class MathUtil {
     return true
   }
 
-  static get roundingModes(): typeof ROUNDING_MODES {
+  static get roundingModes(): Record<string, RoundingMode> {
     return ROUNDING_MODES
   }
 }

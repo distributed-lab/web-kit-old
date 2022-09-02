@@ -8,11 +8,10 @@ import dayjs, {
 } from 'dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
-
-type IsoDate = string
-type UnixDate = number
+import { IsoDate, UnixDate } from '../types/date'
 
 export class DateUtil {
+
   private static _dayjs(date: ConfigType, format?: OptionType): Dayjs {
     dayjs.extend(isSameOrBefore)
     dayjs.extend(isSameOrAfter)
