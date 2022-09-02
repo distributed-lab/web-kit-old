@@ -8,12 +8,6 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 Please check our [developers guide](https://gitlab.com/tokend/developers-guide)
 for further information about branching and tagging conventions.
 
-## [Unreleased]
-
-### Added
-
-### Changed
-
-### Removed
-
-### Fixed
+##[Unreleased]
+### Under the hood changes
+- Initiated project with basic utilities
