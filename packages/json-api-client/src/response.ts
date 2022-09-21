@@ -4,7 +4,8 @@ import isEmpty from 'lodash/isEmpty'
 import { AxiosResponse } from 'axios'
 import { Endpoint, JsonApiLinkFields, JsonApiResponseLinks } from './types'
 import { JsonApiClient } from '@/json-api'
-import { HTTP_METHODS } from '@/./enums'
+import { StatusCodes } from 'http-status-codes'
+import { HTTP_METHODS } from '@/enums'
 
 const formatter = new Jsona()
 
@@ -109,7 +110,10 @@ export class JsonApiResponse<T> {
    * Parses and unwraps response data.
    */
   private _parseResponse(raw: AxiosResponse, needRaw: boolean) {
-    if (raw.status === 204 || raw.status === 205) {
+    if (
+      raw.status === StatusCodes.NO_CONTENT ||
+      raw.status === StatusCodes.RESET_CONTENT
+    ) {
       return
     }
 
@@ -126,12 +130,8 @@ export class JsonApiResponse<T> {
     let intersection = ''
 
     for (const char of link) {
-      if (baseUrl.endsWith(intersection + char)) {
-        intersection += char
-        break
-      } else {
-        intersection += char
-      }
+      intersection += char
+      if (baseUrl.endsWith(intersection + char)) break
     }
 
     return link.replace(intersection, '')

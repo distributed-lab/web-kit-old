@@ -58,21 +58,10 @@ export type JsonApiRecordBase<T extends string> = {
   relationshipNames?: JsonApiRelationships
 }
 
-export type JsonApiModelShort<T extends JsonApiRecordBase<string>> = Pick<
-  T,
-  'id' | 'type'
->
-
 export type JsonApiRecord = JsonApiRecordBase<string> &
   Record<string, JsonApiAttribute | JsonApiRelationships>
 
 export type JsonApiResponseData = JsonApiRecord | JsonApiRecord[]
-
-export type JsonApiPageFilters = {
-  'page[number]'?: number | string
-  'page[order]'?: 'asc' | 'desc'
-  'page[limit]'?: number | string
-}
 
 export type JsonApiResponseLinks = {
   first?: Endpoint
