@@ -8,8 +8,8 @@
   },
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
-  "browser": "./lib/utils.min.js",
-  "unpkg": "./lib/utils.min.js",
+  "browser": "./lib/json-api-client.min.js",
+  "unpkg": "./lib/json-api-client.min.js",
   "types": "./lib/types/index.d.ts",
   "exports": {
     ".": {

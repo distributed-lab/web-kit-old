@@ -7,4 +7,4 @@ import * as JsonApi from './index'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ;(window as any).webKitJsonApi = JsonApi
 
-console.warn('Web Kit Utils was added to the window object.')
+console.warn('Web Kit JSON API Client was added to the window object.')

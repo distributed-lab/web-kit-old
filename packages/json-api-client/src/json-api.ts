@@ -5,7 +5,7 @@ import {
   JsonApiClientConfig,
   JsonApiClientRequestConfig,
   JsonApiClientRequestConfigHeaders,
-  RequestOpts,
+  JsonApiClientRequestOpts,
   Url,
   Uuid,
 } from './types'
@@ -101,7 +101,7 @@ export class JsonApiClient {
   /**
    * Performs a http request
    */
-  async request<T>(opts: RequestOpts): Promise<JsonApiResponse<T>> {
+  async request<T>(opts: JsonApiClientRequestOpts): Promise<JsonApiResponse<T>> {
     let response
 
     const config: JsonApiClientRequestConfig = {

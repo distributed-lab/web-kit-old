@@ -144,7 +144,7 @@ export class JsonApiResponse<T> {
 
     const link = this._createLink(this.links[page] as string)
 
-    const requestOpts = {
+    const JsonApiClientRequestOpts = {
       endpoint: link,
       method: this._raw.config.method?.toUpperCase() as HTTP_METHODS,
       headers: this._raw.config.headers,
@@ -152,6 +152,6 @@ export class JsonApiResponse<T> {
       withCredentials: this._withCredentials,
     }
 
-    return this._apiClient.request<T>(requestOpts)
+    return this._apiClient.request<T>(JsonApiClientRequestOpts)
   }
 }

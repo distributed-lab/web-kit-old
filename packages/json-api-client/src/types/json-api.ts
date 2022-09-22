@@ -71,7 +71,7 @@ export type JsonApiResponseLinks = {
   self?: Endpoint
 }
 
-export type RequestOpts = {
+export type JsonApiClientRequestOpts = {
   endpoint: Endpoint
   method: HTTP_METHODS
   headers?: JsonApiClientRequestConfigHeaders
