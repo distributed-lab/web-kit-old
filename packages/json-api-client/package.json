@@ -1,5 +1,5 @@
 {
-  "name": "@dl/json-api-client",
+  "name": "@distributedlab/json-api-client",
   "description": "API Client for JSON API",
   "version": "1.0.0",
   "license": "MIT",
@@ -20,7 +20,7 @@
   "typedoc": {
     "entryPoint": "./src/index.ts",
     "readmeFile": "./README.md",
-    "displayName": "@dl/json-api-client"
+    "displayName": "@distributedlab/json-api-client"
   },
   "sideEffects": false,
   "scripts": {

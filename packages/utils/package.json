@@ -1,5 +1,5 @@
 {
-  "name": "@dl/utils",
+  "name": "@distributedlab/utils",
   "description": "Typescript-base utils for Distributed Lab projects",
   "version": "1.0.0",
   "license": "MIT",
@@ -20,7 +20,7 @@
   "typedoc": {
     "entryPoint": "./src/index.ts",
     "readmeFile": "./README.md",
-    "displayName": "@dl/utils"
+    "displayName": "@distributedlab/utils"
   },
   "sideEffects": false,
   "scripts": {

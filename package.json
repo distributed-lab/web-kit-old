@@ -1,11 +1,11 @@
 {
-  "name": "web-kit",
+  "name": "@distributedlab/web-kit",
   "author": "Distributed Lab",
   "license": "MIT",
   "private": true,
   "keywords": [
     "sdk",
-    "distributed lan",
+    "distributed lab",
     "opensource"
   ],
   "description": "Front-end web kit for Distributed Lab projects",
