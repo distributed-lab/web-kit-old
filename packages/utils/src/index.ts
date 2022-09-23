@@ -1,5 +1,3 @@
-import { t } from '@/log'
-
-t('hello from utils')
-
-export * from '@/log'
+export * from './math'
+export * from './date'
+export * from '../types/index'
