@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/distributed-lab/web-kit",
   "gitHooks": {
-    "pre-commit": "yarn lint && lerna run type-check"
+    "pre-commit": "yarn lint && lerna run type-check",
+    "pre-push": "yarn test"
   },
   "scripts": {
     "lint": "eslint packages/* --ext .ts,.tsx --fix",

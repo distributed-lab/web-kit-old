@@ -8,7 +8,7 @@ import { parseJsonApiResponse } from './middlewares'
 import { JsonApiClient } from './json-api'
 import { JsonApiLinkFields } from './types'
 
-jest.mock('@/json-api-client/json-api-client')
+jest.mock('./json-api')
 
 describe('JsonApi response data parsing unit test', () => {
   let mockedApi: jest.Mocked<JsonApiClient>
@@ -56,9 +56,7 @@ describe('JsonApi response data parsing unit test', () => {
   })
 
   test('should create correct link from response', () => {
-    const { JsonApiClient } = jest.requireActual(
-      '@/json-api-client/json-api-client',
-    )
+    const { JsonApiClient } = jest.requireActual('./json-api')
 
     const rawResponse = MockWrapper.makeAxiosResponse(RAW_RESPONSE)
 

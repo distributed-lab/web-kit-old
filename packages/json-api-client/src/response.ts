@@ -130,8 +130,12 @@ export class JsonApiResponse<T> {
     let intersection = ''
 
     for (const char of link) {
-      intersection += char
-      if (baseUrl.endsWith(intersection + char)) break
+      if (baseUrl.endsWith(intersection + char)) {
+        intersection += char
+        break
+      } else {
+        intersection += char
+      }
     }
 
     return link.replace(intersection, '')
