@@ -1,5 +1,10 @@
-# @dl/json-api-client
+# @distributedlab/json-api-client
 JSON API client
+
+![version (scoped package)](https://badgen.net/npm/v/@distributedlab/json-api-client)
+![types](https://badgen.net/npm/types/@distributedlab/json-api-client)
+![tree-shaking](https://badgen.net/bundlephobia/tree-shaking/@distributedlab/json-api-client)
+![checks](https://badgen.net/github/checks/distributed-lab/web-kit/main)
 
 ## Changelog
 All notable changes to this project will be documented in this file.
