@@ -11,7 +11,6 @@ import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import { IsoDate, UnixDate } from '../types/date'
 
 export class DateUtil {
-
   private static _dayjs(date: ConfigType, format?: OptionType): Dayjs {
     dayjs.extend(isSameOrBefore)
     dayjs.extend(isSameOrAfter)

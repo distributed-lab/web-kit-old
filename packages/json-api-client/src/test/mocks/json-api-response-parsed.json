@@ -204,7 +204,7 @@
     "amount": 1,
     "claimable_at": "2022-01-25T14:29:17.230663Z",
     "created_at": "2022-01-25T08:31:18.15616Z",
-    "email": "loktionov.semen.kh@gmail.com",
+    "email": "test@test.net",
     "state": "receiver_pending",
     "verification_url": "",
     "meta_sell_order": {
@@ -271,7 +271,7 @@
     "amount": 1,
     "claimable_at": "2022-01-25T14:29:17.230663Z",
     "created_at": "2022-01-25T08:29:07.054527Z",
-    "email": "loktionov.semen.kh@gmail.com",
+    "email": "test@test.net",
     "state": "receiver_pending",
     "verification_url": "",
     "meta_sell_order": {

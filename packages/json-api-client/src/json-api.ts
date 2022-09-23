@@ -52,12 +52,8 @@ export class JsonApiClient {
   }
 
   /**
-   * Rarify manages authentication and ownership within its system via bearer
+   * Manages authentication and ownership within its system via bearer
    * tokens and internal identities.
-   *
-   * All endpoints in the Rarify API use bearer authToken authentication.
-   * To get a authToken, contact us. All requests must include your authToken in the
-   * Authorization header.
    */
   get authToken(): Uuid {
     return this._authToken
@@ -101,7 +97,9 @@ export class JsonApiClient {
   /**
    * Performs a http request
    */
-  async request<T>(opts: JsonApiClientRequestOpts): Promise<JsonApiResponse<T>> {
+  async request<T>(
+    opts: JsonApiClientRequestOpts,
+  ): Promise<JsonApiResponse<T>> {
     let response
 
     const config: JsonApiClientRequestConfig = {

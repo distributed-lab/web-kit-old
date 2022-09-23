@@ -118,11 +118,7 @@ export class MathUtil {
     DECIMALS = DECIMAL_PLACES,
     ROUND_TYPE: RoundingMode = ROUNDING_MODES.ROUND_UP,
   ) {
-    return new BigNumber(value).toFormat(
-      DECIMALS,
-      ROUND_TYPE,
-      fmt,
-    )
+    return new BigNumber(value).toFormat(DECIMALS, ROUND_TYPE, fmt)
   }
 
   static _isValidParams(_op: string, a: string, b: string, c = 0): boolean {
