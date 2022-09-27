@@ -1,6 +1,6 @@
 {
-  "name": "@distributedlab/utils",
-  "description": "Typescript-base utils for Distributed Lab projects",
+  "name": "@distributedlab/web3-provider",
+  "description": "Web3 Provider",
   "version": "1.0.2",
   "license": "MIT",
   "publishConfig": {
@@ -8,8 +8,8 @@
   },
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
-  "browser": "./lib/utils.min.js",
-  "unpkg": "./lib/utils.min.js",
+  "browser": "./lib/web3-provider.min.js",
+  "unpkg": "./lib/web3-provider.min.js",
   "types": "./lib/types/index.d.ts",
   "exports": {
     ".": {
@@ -20,7 +20,7 @@
   "typedoc": {
     "entryPoint": "./src/index.ts",
     "readmeFile": "./README.md",
-    "displayName": "@distributedlab/utils"
+    "displayName": "@distributedlab/web3-provider"
   },
   "sideEffects": false,
   "scripts": {
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.19.0",
-    "bignumber.js": "^9.1.0",
-    "dayjs": "^1.11.5"
+    "@vue/reactivity": "^3.2.39",
+    "ethers": "^5.7.1"
   }
 }
