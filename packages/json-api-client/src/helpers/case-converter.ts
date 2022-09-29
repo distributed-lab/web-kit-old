@@ -27,7 +27,7 @@ function convertCaseDeep<T>(object: T, converter: CaseConverter): T {
   if (isPlainObject(object)) {
     const convertedObject: Record<string, unknown> = {}
 
-    Object.keys(object).forEach(key => {
+    Object.keys(object as Record<string, unknown>).forEach(key => {
       const objectRecord = object as Record<string, unknown>
       convertedObject[toCase(key, converter)] = convertCaseDeep(
         objectRecord[key],

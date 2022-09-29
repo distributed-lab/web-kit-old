@@ -20,7 +20,7 @@ import {
 import { Deferrable } from '@ethersproject/properties'
 import { TransactionRequest } from '@ethersproject/abstract-provider'
 
-export const useMetamask = (provider: ProviderInstance): ProviderWrapper => {
+export const useCoinbase = (provider: ProviderInstance): ProviderWrapper => {
   const chainId = ref<ChainId>('')
   const selectedAddress = ref('')
 
@@ -110,7 +110,6 @@ export const useMetamask = (provider: ProviderInstance): ProviderWrapper => {
       return transactionResponse
     } catch (error) {
       handleEthError(error as EthProviderRpcError)
-      return
     }
   }
 

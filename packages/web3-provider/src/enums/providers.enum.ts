@@ -6,6 +6,8 @@ export enum PROVIDERS {
   walletConnect = 'wallet-connect',
   brave = 'brave',
   ledger = 'ledger',
+  phantom = 'phantom',
+  solflare = 'solflare',
 }
 
 export enum PROVIDERS_CHECKS {
@@ -16,4 +18,6 @@ export enum PROVIDERS_CHECKS {
   walletConnect = 'isWalletConnect',
   brave = 'isBraveWallet',
   ledger = 'isLedger',
+  phantom = 'isPhantom',
+  solflare = 'isSolflare',
 }
