@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.19.0",
-    "@distributedlab/utils": "/Users/art/Workspace/web-kit/packages/utils",
+    "@distributedlab/utils": "*",
     "@solana/web3.js": "^1.63.1",
     "@vue/reactivity": "^3.2.39",
     "bs58": "^5.0.0",

@@ -9,7 +9,6 @@ export const useWeb3 = () => {
   const _browserProviders = ref<ProviderInstance[]>([])
 
   const isEnabled = computed(() => !!providers.value.length)
-
   const init = async () => {
     await sleep(500)
     detectProvidersInBrowser()
@@ -27,7 +26,6 @@ export const useWeb3 = () => {
       ...(phantomProvider ? [phantomProvider] : []),
       ...(solflareProvider ? [solflareProvider] : []),
     ]
-    console.log(_browserProviders)
   }
 
   const _defineProviders = async () => {
