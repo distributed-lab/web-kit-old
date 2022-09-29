@@ -1,0 +1,43 @@
+{
+  "name": "@distributedlab/web3-provider",
+  "description": "Web3 Provider",
+  "version": "1.0.2",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "browser": "./lib/web3-provider.min.js",
+  "unpkg": "./lib/web3-provider.min.js",
+  "types": "./lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/esm/index.js",
+      "require": "./lib/cjs/index.js"
+    }
+  },
+  "typedoc": {
+    "entryPoint": "./src/index.ts",
+    "readmeFile": "./README.md",
+    "displayName": "@distributedlab/web3-provider"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "build": "yarn clean && yarn build:types && yarn build:cjs && yarn build:esm && yarn build:browser",
+    "build:cjs": "babel src --out-dir lib/cjs --extensions \".ts,.tsx\" --config-file ./babel.config.node.json",
+    "build:esm": "babel src --out-dir lib/esm --extensions \".ts,.tsx\" --config-file ./babel.config.json",
+    "build:types": "tsc --emitDeclarationOnly && tsc-alias -p tsconfig.json",
+    "build:browser": "node ./esbuild.js",
+    "clean": "rm -rf lib"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.19.0",
+    "@distributedlab/utils": "*",
+    "@solana/web3.js": "^1.63.1",
+    "@vue/reactivity": "^3.2.39",
+    "bs58": "^5.0.0",
+    "ethers": "^5.7.1"
+  }
+}
