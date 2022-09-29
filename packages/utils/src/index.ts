@@ -1,3 +1,3 @@
-export * from './math'
-export * from './date'
-export * from './promise-helpers'
+export { MathUtil } from './math'
+export { DateUtil } from './date'
+export { sleep } from './promise-helpers'
