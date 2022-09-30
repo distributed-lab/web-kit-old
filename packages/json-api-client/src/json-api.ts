@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios'
+import axios, { AxiosError, AxiosInstance } from 'axios'
 import { HTTP_METHODS } from './enums'
 import { JsonApiResponse } from '@/response'
 import {
@@ -6,8 +6,7 @@ import {
   JsonApiClientRequestConfig,
   JsonApiClientRequestConfigHeaders,
   JsonApiClientRequestOpts,
-  Url,
-  Uuid,
+  URL,
 } from './types'
 import {
   flattenToAxiosJsonApiQuery,
@@ -21,15 +20,15 @@ import { isUndefined } from './helpers'
  * Represents JsonApiClient that performs requests to backend
  */
 export class JsonApiClient {
-  private _baseUrl: Url
-  protected _authToken: Uuid
+  private _baseUrl: URL
+  private _axios: AxiosInstance
 
   constructor(config = {} as JsonApiClientConfig) {
-    this._authToken = ''
     this._baseUrl = ''
+    this._axios = axios.create()
 
     if (config?.baseUrl) this.useBaseUrl(config.baseUrl)
-    if (config?.authToken) this.setAuthToken(config.authToken)
+    if (config?.axios) this.useAxios(config.axios)
   }
 
   /**
@@ -40,6 +39,21 @@ export class JsonApiClient {
   }
 
   /**
+   * Sets axios instance to the client instance.
+   */
+  public get axios(): AxiosInstance {
+    return this._axios
+  }
+
+  /**
+   * Sets axios instance to the client instance.
+   */
+  public useAxios(axiosInstance: AxiosInstance): JsonApiClient {
+    this._axios = axiosInstance
+    return this
+  }
+
+  /**
    *  Base URL will be prepended to `url` unless `url` is absolute.
    *  It can be convenient to set `baseURL` for an instance of axios to pass
    *  relative URLs to methods of that instance.
@@ -47,30 +61,14 @@ export class JsonApiClient {
    *  For more details look Axios Request config:
    *  {@link https://github.com/axios/axios#request-config}
    */
-  get baseUrl(): Url {
+  public get baseUrl(): URL {
     return this._baseUrl
-  }
-
-  /**
-   * Manages authentication and ownership within its system via bearer
-   * tokens and internal identities.
-   */
-  get authToken(): Uuid {
-    return this._authToken
-  }
-
-  /**
-   * Sets authentication token to the client instance.
-   */
-  setAuthToken(authToken: Uuid): JsonApiClient {
-    this._authToken = authToken
-    return this
   }
 
   /**
    * Assigns new base URL to the current instance.
    */
-  useBaseUrl(baseUrl: Url): JsonApiClient {
+  useBaseUrl(baseUrl: URL): JsonApiClient {
     if (!baseUrl) throw new TypeError('Arg "baseUrl" not passed')
     this._baseUrl = baseUrl
     return this
@@ -79,19 +77,10 @@ export class JsonApiClient {
   /**
    * Creates new instance JsonApiClient instance with given base URL.
    */
-  withBaseUrl(baseUrl: Url): JsonApiClient {
+  withBaseUrl(baseUrl: URL): JsonApiClient {
     if (!baseUrl) throw new TypeError('Arg "baseUrl" not passed')
 
     return this._clone().useBaseUrl(baseUrl)
-  }
-
-  /**
-   * Creates new instance JsonApiClient instance with given auth authToken.
-   */
-  withAuthToken(authToken: Uuid): JsonApiClient {
-    if (!authToken) throw new TypeError('Arg "authToken" not passed')
-
-    return this._clone().setAuthToken(authToken)
   }
 
   /**
@@ -126,12 +115,10 @@ export class JsonApiClient {
       config.headers = setJsonApiHeaders(config)
 
       if (opts.contentType) config.headers['Content-Type'] = opts.contentType
-      if (this.authToken)
-        config.headers['Authorization'] = `Bearer ${this.authToken}`
     }
 
     try {
-      response = await axios(config)
+      response = await this._axios(config)
     } catch (e) {
       throw parseJsonApiError(e as AxiosError)
     }
