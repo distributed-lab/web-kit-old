@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, AxiosRequestHeaders } from 'axios'
+import { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders } from 'axios'
 import { HTTP_METHODS } from '@/enums'
 
 export enum JsonApiLinkFields {
@@ -9,15 +9,13 @@ export enum JsonApiLinkFields {
   self = 'self',
 }
 
-export type Uuid = string
+export type URL = string
 
-export type Url = string
-
-export type Endpoint = string
+export type Endpoint = string // e.g. `/users`
 
 export type JsonApiClientConfig = {
-  baseUrl?: Url
-  authToken?: Uuid
+  baseUrl?: URL
+  axios?: AxiosInstance
 }
 
 export type JsonApiClientRequestConfigHeaders = AxiosRequestHeaders
@@ -30,21 +28,6 @@ export type JsonApiErrorMetaType = Record<string, unknown> | unknown[] | unknown
 
 export type JsonApiErrorBaseNestedErrors = Record<string, unknown>[]
 
-export type JsonApiKey = {
-  id?: Uuid
-  type: string
-}
-
-export type JsonApiAttribute = string | number | string[] | boolean | undefined
-export type JsonApiRawRelationship = { data: JsonApiKey }
-
-export type JsonApiRawResource = JsonApiKey & {
-  attributes?: Record<string, JsonApiAttribute>
-  relationshipNames?: Record<string, JsonApiRawRelationship>
-}
-
-export type JsonApiPayload = { data: JsonApiRawResource }
-
 export type JsonApiRelationship = Record<string, unknown>
 
 export type JsonApiRelationships = Record<
@@ -52,16 +35,12 @@ export type JsonApiRelationships = Record<
   JsonApiRelationship | JsonApiRelationship[]
 >
 
+// Can be used in client code to extend and cast own entity types
 export type JsonApiRecordBase<T extends string> = {
-  id: Uuid
+  id: string
   type: T
-  relationshipNames?: JsonApiRelationships
+  relationships?: JsonApiRelationships
 }
-
-export type JsonApiRecord = JsonApiRecordBase<string> &
-  Record<string, JsonApiAttribute | JsonApiRelationships>
-
-export type JsonApiResponseData = JsonApiRecord | JsonApiRecord[]
 
 export type JsonApiResponseLinks = {
   first?: Endpoint

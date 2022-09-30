@@ -21,40 +21,23 @@ beforeEach(() => {
 
 describe('performs JsonApiClient request unit test', () => {
   describe('performs constructor', () => {
-    test('should set auth token if provided', () => {
-      const api = new JsonApiClient({ authToken: 'foo' })
-      expect(api.authToken).toBe('foo')
-    })
-
     test('should set base url if provided', () => {
       const api = new JsonApiClient({ baseUrl: 'foo' })
       expect(api.baseUrl).toBe('foo')
     })
 
     test('should set base url and auth token if provided', () => {
-      const api = new JsonApiClient({ baseUrl: 'foo', authToken: 'bar' })
+      const api = new JsonApiClient({ baseUrl: 'foo' })
       expect(api.baseUrl).toBe('foo')
-      expect(api.authToken).toBe('bar')
     })
 
     test('base url and auth token should be empty if not provided', () => {
       const api = new JsonApiClient()
       expect(api.baseUrl).toBe('')
-      expect(api.authToken).toBe('')
     })
   })
 
   describe('performs helper methods', () => {
-    test('should change auth token', () => {
-      const api = new JsonApiClient({ authToken: 'foo' })
-
-      expect(api.authToken).toBe('foo')
-
-      api.setAuthToken('bar')
-
-      expect(api.authToken).toBe('bar')
-    })
-
     test('should throw exception "baseUrl" argument not provided', () =>
       expect(() => new JsonApiClient().useBaseUrl('')).toThrow(
         'Arg "baseUrl" not passed',
@@ -68,20 +51,6 @@ describe('performs JsonApiClient request unit test', () => {
       api.useBaseUrl('bar')
 
       expect(api.baseUrl).toBe('bar')
-    })
-
-    test('should throw exception if "authToken" argument not provided', () =>
-      expect(() => new JsonApiClient().withAuthToken('')).toThrow(
-        'Arg "authToken" not passed',
-      ))
-
-    test('should return new client with new auth token', () => {
-      const api = new JsonApiClient({ authToken: 'foo' })
-      const apiWithNewAuthToken = api.withAuthToken('bar')
-
-      expect(api.authToken).toBe('foo')
-      expect(apiWithNewAuthToken).toBeInstanceOf(JsonApiClient)
-      expect(apiWithNewAuthToken.authToken).toBe('bar')
     })
 
     test('should throw exception if "baseUrl" argument not provided', () =>
@@ -105,9 +74,13 @@ describe('performs JsonApiClient request unit test', () => {
     let api: JsonApiClient
 
     beforeEach(() => {
-      api = new JsonApiClient({ baseUrl: 'http://localhost:8095' })
+      mockedAxios.mockResolvedValue(rawResponse)
+      mockedAxios.create.mockImplementation(() => mockedAxios)
 
-      mockedAxios.mockResolvedValueOnce(rawResponse)
+      api = new JsonApiClient({
+        baseUrl: 'http://localhost:8095',
+        axios: mockedAxios,
+      })
 
       jest.spyOn(api, 'request')
     })

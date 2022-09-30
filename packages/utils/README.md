@@ -29,3 +29,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     <li>@babel/runtime dependency</li>
   </ul>
 </details>
+<details><summary>1.0.3</summary>
+  <h4>Fixed</h4>
+  <ul>
+    <li>types directory location</li>
+  </ul>
+</details>
