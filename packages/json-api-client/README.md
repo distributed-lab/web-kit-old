@@ -115,7 +115,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     <li>@babel/runtime dependency</li>
   </ul>
 </details>
-<details><summary>1.1.0</summary>
+<details><summary>2.0.0</summary>
   <h4>Added</h4>
   <ul>
     <li>

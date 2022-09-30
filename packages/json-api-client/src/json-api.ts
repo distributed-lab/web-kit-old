@@ -24,11 +24,8 @@ export class JsonApiClient {
   private _axios: AxiosInstance
 
   constructor(config = {} as JsonApiClientConfig) {
-    this._baseUrl = ''
-    this._axios = axios.create()
-
-    if (config?.baseUrl) this.useBaseUrl(config.baseUrl)
-    if (config?.axios) this.useAxios(config.axios)
+    this._baseUrl = config.baseUrl ?? ''
+    this._axios = config.axios ?? axios.create()
   }
 
   /**
