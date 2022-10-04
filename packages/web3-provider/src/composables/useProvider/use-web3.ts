@@ -8,7 +8,7 @@ export const useWeb3 = () => {
 
   const _browserProviders = ref<ProviderInstance[]>([])
 
-  const isEnabled = computed(() => !!providers.value.length)
+  const isEnabled = computed(() => Boolean(providers.value.length))
   const init = async () => {
     await sleep(500)
     detectProvidersInBrowser()

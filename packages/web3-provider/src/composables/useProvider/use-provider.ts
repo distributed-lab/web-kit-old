@@ -32,8 +32,6 @@ export interface UseProvider {
   ) => Promise<void>
   signAndSendTx: (txRequestBody: TxRequestBody) => Promise<TransactionResponse>
   getHashFromTxResponse: (txResponse: TransactionResponse) => string
-  getTxUrl: (explorerUrl: string, txHash: string) => string
-  getAddressUrl: (explorerUrl: string, address: string) => string
 }
 
 export const useProvider = (): UseProvider => {
@@ -78,6 +76,7 @@ export const useProvider = (): UseProvider => {
     await providerWrp.value.connect()
   }
 
+  // TODO: It's not actually a disconnect. To be implemented in next versions
   const disconnect = () => {
     providerWrp.value = undefined
   }
@@ -93,11 +92,23 @@ export const useProvider = (): UseProvider => {
     chainId: ChainId,
     chainName: string,
     chainRpcUrl: string,
+    blockExplorerUrls?: string,
+    nativeCurrency?: {
+      name: string
+      symbol: string
+      decimals: number
+    },
   ) => {
     if (!providerWrp.value || !providerWrp.value?.addChain)
       throw new errors.ProviderWrapperMethodNotFoundError()
 
-    await providerWrp.value.addChain(chainId, chainName, chainRpcUrl)
+    await providerWrp.value.addChain(
+      chainId,
+      chainName,
+      chainRpcUrl,
+      blockExplorerUrls,
+      nativeCurrency,
+    )
   }
 
   const signAndSendTx = async (
@@ -116,20 +127,6 @@ export const useProvider = (): UseProvider => {
     return providerWrp.value.getHashFromTxResponse(txResponse)
   }
 
-  const getTxUrl = (explorerUrl: string, txHash: string): string => {
-    if (!providerWrp.value)
-      throw new errors.ProviderWrapperMethodNotFoundError()
-
-    return providerWrp.value.getTxUrl(explorerUrl, txHash)
-  }
-
-  const getAddressUrl = (explorerUrl: string, address: string): string => {
-    if (!providerWrp.value)
-      throw new errors.ProviderWrapperMethodNotFoundError()
-
-    return providerWrp.value.getAddressUrl(explorerUrl, address)
-  }
-
   return {
     selectedProvider,
     chainId,
@@ -143,7 +140,5 @@ export const useProvider = (): UseProvider => {
     addChain,
     signAndSendTx,
     getHashFromTxResponse,
-    getTxUrl,
-    getAddressUrl,
   }
 }

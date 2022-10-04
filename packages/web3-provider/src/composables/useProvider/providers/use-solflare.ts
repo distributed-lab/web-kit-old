@@ -9,12 +9,7 @@ import {
   TxRequestBody,
 } from '@/types'
 import { computed, ref } from '@vue/reactivity'
-import {
-  decodeSolanaTx,
-  getSolExplorerAddressUrl,
-  getSolExplorerTxUrl,
-  handleSolError,
-} from '@/helpers'
+import { decodeSolanaTx, handleSolError } from '@/helpers'
 import {
   Connection,
   clusterApiUrl,
@@ -22,12 +17,11 @@ import {
   Transaction as SolTransaction,
   PublicKey,
 } from '@solana/web3.js'
-import { SOLANA_CHAINS } from '@/enums'
 
 export const useSolflare = (provider: ProviderInstance): ProviderWrapper => {
   const currentProvider = provider as PhantomProvider
 
-  const chainId = ref<ChainId>(SOLANA_CHAINS.devnet)
+  const chainId = ref<ChainId>('')
   const selectedAddress = ref('')
 
   const connection = ref(
@@ -103,18 +97,6 @@ export const useSolflare = (provider: ProviderInstance): ProviderWrapper => {
     return txResponse as SolanaTransactionResponse
   }
 
-  const getTxUrl = (explorerUrl: string, txHash: string) => {
-    return getSolExplorerTxUrl(chainId.value as string, explorerUrl, txHash)
-  }
-
-  const getAddressUrl = (explorerUrl: string, txHash: string) => {
-    return getSolExplorerAddressUrl(
-      chainId.value as string,
-      explorerUrl,
-      txHash,
-    )
-  }
-
   return {
     chainId,
     isConnected,
@@ -125,7 +107,5 @@ export const useSolflare = (provider: ProviderInstance): ProviderWrapper => {
     switchChain,
     signAndSendTransaction,
     getHashFromTxResponse,
-    getTxUrl,
-    getAddressUrl,
   }
 }

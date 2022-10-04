@@ -1,8 +1,6 @@
 import { ethers } from 'ethers'
 import {
   connectEthAccounts,
-  getEthExplorerAddressUrl,
-  getEthExplorerTxUrl,
   handleEthError,
   requestAddEthChain,
   requestSwitchEthChain,
@@ -88,12 +86,11 @@ export const useMetamask = (provider: ProviderInstance): ProviderWrapper => {
     chainRpcUrl: string,
   ) => {
     try {
-      await requestAddEthChain(
-        currentProvider,
-        Number(chainId),
+      await requestAddEthChain(currentProvider, {
+        chainId: Number(chainId),
         chainName,
         chainRpcUrl,
-      )
+      })
     } catch (error) {
       handleEthError(error as EthProviderRpcError)
     }
@@ -119,14 +116,6 @@ export const useMetamask = (provider: ProviderInstance): ProviderWrapper => {
     return transactionResponse.hash
   }
 
-  const getTxUrl = (explorerUrl: string, txHash: string) => {
-    return getEthExplorerTxUrl(explorerUrl, txHash)
-  }
-
-  const getAddressUrl = (explorerUrl: string, address: string) => {
-    return getEthExplorerAddressUrl(explorerUrl, address)
-  }
-
   return {
     chainId,
     selectedAddress,
@@ -138,7 +127,5 @@ export const useMetamask = (provider: ProviderInstance): ProviderWrapper => {
     addChain,
     signAndSendTransaction,
     getHashFromTxResponse,
-    getTxUrl,
-    getAddressUrl,
   }
 }

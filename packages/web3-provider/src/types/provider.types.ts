@@ -26,12 +26,6 @@ export type DesignatedProvider = {
 
 export type ChainId = string | number
 
-export type Chain = {
-  id: ChainId
-  name: string
-  rpcUrl: string
-}
-
 export type TxRequestBody =
   | Deferrable<TransactionRequest>
   | SolTransaction
@@ -63,13 +57,17 @@ export interface ProviderWrapper {
     chainId: ChainId,
     chainName: string,
     chainRpcUrl: string,
+    blockExplorerUrls?: string,
+    nativeCurrency?: {
+      name: string
+      symbol: string
+      decimals: number
+    },
   ) => Promise<void>
   signAndSendTransaction: (
     txRequestBody: TxRequestBody,
   ) => Promise<TransactionResponse>
   getHashFromTxResponse: (txResponse: TransactionResponse) => string
-  getTxUrl: (explorerUrl: string, txHash: string) => string
-  getAddressUrl: (explorerUrl: string, address: string) => string
 }
 
 export type { UseProvider } from '@/composables/useProvider'
