@@ -2,12 +2,15 @@ import { errors } from '@/errors'
 import { JsonApiError } from '@/errors'
 import { AxiosError } from 'axios'
 import { HTTP_STATUS_CODES } from '@/enums'
+import { JsonApiResponseErrors } from '@/types'
 
 /*
  * Parses server error and returns corresponding error instance.
  * Needed to handle on client side different behavior based on error type
  */
-export const parseJsonApiError = (error: AxiosError): JsonApiError => {
+export const parseJsonApiError = (
+  error: AxiosError<JsonApiResponseErrors>,
+): JsonApiError => {
   const status = error?.response?.status
 
   switch (status) {

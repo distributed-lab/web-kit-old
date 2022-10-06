@@ -1,11 +1,12 @@
-import axios, { AxiosError, AxiosInstance } from 'axios'
+const axios = require('axios').default
+import { AxiosError, AxiosInstance } from 'axios'
 import { HTTP_METHODS } from './enums'
 import { JsonApiResponse } from '@/response'
 import {
   JsonApiClientConfig,
   JsonApiClientRequestConfig,
-  JsonApiClientRequestConfigHeaders,
   JsonApiClientRequestOpts,
+  JsonApiResponseErrors,
   URL,
 } from './types'
 import {
@@ -91,13 +92,15 @@ export class JsonApiClient {
     const config: JsonApiClientRequestConfig = {
       baseURL: this.baseUrl,
       params: opts.query ?? {},
-      paramsSerializer: (params: object): string =>
-        Object.entries(params)
-          .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
-          .join('&'),
+      paramsSerializer: {
+        encode: (params: object): string =>
+          Object.entries(params)
+            .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+            .join('&'),
+      },
       data: opts.isEmptyBodyAllowed && !opts.data ? undefined : opts.data || {},
       method: opts.method,
-      headers: opts?.headers ?? ({} as JsonApiClientRequestConfigHeaders),
+      headers: opts?.headers ?? {},
       url: opts.endpoint,
       withCredentials: isUndefined(opts.withCredentials)
         ? true
@@ -117,7 +120,7 @@ export class JsonApiClient {
     try {
       response = await this._axios(config)
     } catch (e) {
-      throw parseJsonApiError(e as AxiosError)
+      throw parseJsonApiError(e as AxiosError<JsonApiResponseErrors>)
     }
 
     return parseJsonApiResponse<T>({

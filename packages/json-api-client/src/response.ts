@@ -1,7 +1,11 @@
 import Jsona from 'jsona'
 import isEmpty from 'lodash/isEmpty'
 
-import { AxiosResponse } from 'axios'
+import {
+  AxiosResponse,
+  AxiosResponseHeaders,
+  RawAxiosResponseHeaders,
+} from 'axios'
 import { Endpoint, JsonApiLinkFields, JsonApiResponseLinks } from './types'
 import { JsonApiClient } from '@/json-api'
 import { StatusCodes } from 'http-status-codes'
@@ -88,7 +92,7 @@ export class JsonApiResponse<T> {
   /**
    * Get response headers.
    */
-  get headers(): Record<string, string> {
+  get headers(): RawAxiosResponseHeaders | AxiosResponseHeaders {
     return this._raw.headers
   }
 

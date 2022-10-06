@@ -1,4 +1,8 @@
-import { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders } from 'axios'
+import {
+  AxiosInstance,
+  RawAxiosRequestHeaders,
+  AxiosRequestConfig,
+} from 'axios'
 import { HTTP_METHODS } from '@/enums'
 
 export enum JsonApiLinkFields {
@@ -18,7 +22,7 @@ export type JsonApiClientConfig = {
   axios?: AxiosInstance
 }
 
-export type JsonApiClientRequestConfigHeaders = AxiosRequestHeaders
+export type JsonApiClientRequestConfigHeaders = RawAxiosRequestHeaders
 
 export type JsonApiClientRequestParams = unknown
 
@@ -60,4 +64,25 @@ export type JsonApiClientRequestOpts = {
   isEmptyBodyAllowed?: boolean
   needRaw?: boolean
   withCredentials?: boolean
+}
+
+export type JsonApiResponseError = {
+  id?: string | number
+  code?: string
+  title?: string
+  detail?: string
+  status?: string
+  source?: {
+    pointer?: string
+    parameter?: string
+    header?: string
+  }
+  meta?: JsonApiErrorMetaType
+  links?: JsonApiResponseLinks
+}
+
+export type JsonApiResponseNestedErrors = JsonApiResponseError[]
+
+export type JsonApiResponseErrors = {
+  errors?: JsonApiResponseNestedErrors
 }
