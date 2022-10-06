@@ -30,8 +30,6 @@ export type JsonApiClientRequestConfig = AxiosRequestConfig
 
 export type JsonApiErrorMetaType = Record<string, unknown> | unknown[] | unknown
 
-export type JsonApiErrorBaseNestedErrors = Record<string, unknown>[]
-
 export type JsonApiRelationship = Record<string, unknown>
 
 export type JsonApiRelationships = Record<

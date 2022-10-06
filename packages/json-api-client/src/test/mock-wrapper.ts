@@ -1,6 +1,5 @@
 import { AxiosRequestConfig, AxiosResponse, AxiosResponseHeaders } from 'axios'
-import { JsonApiClient, JsonApiResponse } from '../index'
-import { parseJsonApiResponse } from '@/middlewares'
+import { JsonApiClient } from '../index'
 
 export class MockWrapper {
   static makeAxiosResponse<T>(
@@ -15,21 +14,6 @@ export class MockWrapper {
       headers: {} as AxiosResponseHeaders,
       config: config || ({} as AxiosRequestConfig),
     } as AxiosResponse
-  }
-
-  static makeJsonApiResponse<T>(
-    data: unknown,
-    needRaw?: boolean,
-  ): JsonApiResponse<T> {
-    const apiClient = MockWrapper.getMockedApi()
-    const raw = MockWrapper.makeAxiosResponse<T>(data as T)
-
-    return parseJsonApiResponse<T>({
-      raw,
-      needRaw: Boolean(needRaw),
-      apiClient,
-      withCredentials: true,
-    })
   }
 
   static getMockedApi(): jest.Mocked<JsonApiClient> {
