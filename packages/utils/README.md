@@ -11,22 +11,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-<details><summary>1.0.0</summary>
-  <h4>Under the hood changes</h4>
-  <ul>
-    <li>Initiated project</li>
-  </ul>
-</details>
-<details><summary>1.0.1</summary>
+
+<details><summary>1.0.4</summary>
   <h4>Fixed</h4>
   <ul>
-    <li>Readme</li>
-  </ul>
-</details>
-<details><summary>1.0.2</summary>
-  <h4>Fixed</h4>
-  <ul>
-    <li>@babel/runtime dependency</li>
+    <li>Build content in NPM package</li>
   </ul>
 </details>
 <details><summary>1.0.3</summary>
@@ -35,3 +24,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     <li>types directory location</li>
   </ul>
 </details>
+<details><summary>1.0.2</summary>
+  <h4>Fixed</h4>
+  <ul>
+    <li>@babel/runtime dependency</li>
+  </ul>
+</details>
+<details><summary>1.0.1</summary>
+  <h4>Fixed</h4>
+  <ul>
+    <li>Readme</li>
+  </ul>
+</details>
+<details><summary>1.0.0</summary>
+  <h4>Under the hood changes</h4>
+  <ul>
+    <li>Initiated project</li>
+  </ul>
+</details>
+
