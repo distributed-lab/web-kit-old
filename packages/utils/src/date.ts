@@ -108,16 +108,16 @@ export class DateUtil {
     return this._dayjs(targetDate).isSameOrBefore(comparisonDate)
   }
 
-  public static diffs(
+  public static diff(
     targetDate: ConfigType,
     comparisonDate: ConfigType,
     unit?: UnitType,
-    float?: boolean,
+    isTruncated = false,
   ): number {
     return this._dayjs(targetDate).diff(
       this._dayjs(comparisonDate),
       unit,
-      float,
+      isTruncated,
     )
   }
 }
