@@ -107,4 +107,17 @@ export class DateUtil {
   ): boolean {
     return this._dayjs(targetDate).isSameOrBefore(comparisonDate)
   }
+
+  public static diffs(
+    targetDate: ConfigType,
+    comparisonDate: ConfigType,
+    unit?: UnitType,
+    float?: boolean,
+  ): number {
+    return this._dayjs(targetDate).diff(
+      this._dayjs(comparisonDate),
+      unit,
+      float,
+    )
+  }
 }
