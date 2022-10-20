@@ -4,8 +4,8 @@ import { JsonApiResponse } from '@/response'
 import {
   JsonApiClientConfig,
   JsonApiClientRequestConfig,
-  JsonApiClientRequestConfigHeaders,
   JsonApiClientRequestOpts,
+  JsonApiResponseErrors,
   URL,
 } from './types'
 import {
@@ -91,13 +91,15 @@ export class JsonApiClient {
     const config: JsonApiClientRequestConfig = {
       baseURL: this.baseUrl,
       params: opts.query ?? {},
-      paramsSerializer: (params: object): string =>
-        Object.entries(params)
-          .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
-          .join('&'),
+      paramsSerializer: {
+        encode: (params: object): string =>
+          Object.entries(params)
+            .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+            .join('&'),
+      },
       data: opts.isEmptyBodyAllowed && !opts.data ? undefined : opts.data || {},
       method: opts.method,
-      headers: opts?.headers ?? ({} as JsonApiClientRequestConfigHeaders),
+      headers: opts?.headers ?? {},
       url: opts.endpoint,
       withCredentials: isUndefined(opts.withCredentials)
         ? true
@@ -117,12 +119,12 @@ export class JsonApiClient {
     try {
       response = await this._axios(config)
     } catch (e) {
-      throw parseJsonApiError(e as AxiosError)
+      throw parseJsonApiError(e as AxiosError<JsonApiResponseErrors>)
     }
 
     return parseJsonApiResponse<T>({
       raw: response,
-      needRaw: Boolean(opts?.needRaw),
+      isNeedRaw: Boolean(opts?.isNeedRaw),
       apiClient: this,
       withCredentials: Boolean(opts?.withCredentials),
     })
@@ -135,12 +137,14 @@ export class JsonApiClient {
   get<T>(
     endpoint: string,
     query: Record<string, unknown> = {},
+    isNeedRaw?: boolean,
   ): Promise<JsonApiResponse<T>> {
     return this.request<T>({
       method: HTTP_METHODS.GET,
       endpoint,
       query,
       isEmptyBodyAllowed: true,
+      isNeedRaw,
     })
   }
 
@@ -148,11 +152,16 @@ export class JsonApiClient {
    * Makes a `POST` to a target `endpoint` with the provided `data` as body.
    * Parses the response in JsonApi format.
    */
-  post<T>(endpoint: string, data: unknown): Promise<JsonApiResponse<T>> {
+  post<T>(
+    endpoint: string,
+    data: unknown,
+    isNeedRaw?: boolean,
+  ): Promise<JsonApiResponse<T>> {
     return this.request<T>({
       method: HTTP_METHODS.POST,
       endpoint,
       data,
+      isNeedRaw,
     })
   }
 

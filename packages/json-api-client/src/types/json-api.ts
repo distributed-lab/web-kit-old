@@ -1,4 +1,8 @@
-import { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders } from 'axios'
+import {
+  AxiosInstance,
+  RawAxiosRequestHeaders,
+  AxiosRequestConfig,
+} from 'axios'
 import { HTTP_METHODS } from '@/enums'
 
 export enum JsonApiLinkFields {
@@ -18,15 +22,13 @@ export type JsonApiClientConfig = {
   axios?: AxiosInstance
 }
 
-export type JsonApiClientRequestConfigHeaders = AxiosRequestHeaders
+export type JsonApiClientRequestConfigHeaders = RawAxiosRequestHeaders
 
 export type JsonApiClientRequestParams = unknown
 
 export type JsonApiClientRequestConfig = AxiosRequestConfig
 
 export type JsonApiErrorMetaType = Record<string, unknown> | unknown[] | unknown
-
-export type JsonApiErrorBaseNestedErrors = Record<string, unknown>[]
 
 export type JsonApiRelationship = Record<string, unknown>
 
@@ -58,6 +60,27 @@ export type JsonApiClientRequestOpts = {
   query?: unknown
   contentType?: string
   isEmptyBodyAllowed?: boolean
-  needRaw?: boolean
+  isNeedRaw?: boolean
   withCredentials?: boolean
+}
+
+export type JsonApiResponseError = {
+  id?: string | number
+  code?: string
+  title?: string
+  detail?: string
+  status?: string
+  source?: {
+    pointer?: string
+    parameter?: string
+    header?: string
+  }
+  meta?: JsonApiErrorMetaType
+  links?: JsonApiResponseLinks
+}
+
+export type JsonApiResponseNestedErrors = JsonApiResponseError[]
+
+export type JsonApiResponseErrors = {
+  errors?: JsonApiResponseNestedErrors
 }

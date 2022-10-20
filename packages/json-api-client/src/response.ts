@@ -1,7 +1,7 @@
 import Jsona from 'jsona'
 import isEmpty from 'lodash/isEmpty'
 
-import { AxiosResponse } from 'axios'
+import { AxiosResponse, RawAxiosResponseHeaders } from 'axios'
 import { Endpoint, JsonApiLinkFields, JsonApiResponseLinks } from './types'
 import { JsonApiClient } from '@/json-api'
 import { StatusCodes } from 'http-status-codes'
@@ -18,12 +18,12 @@ export class JsonApiResponse<T> {
   private _data!: T
   private _links: JsonApiResponseLinks
   private _apiClient: JsonApiClient
-  private _needRaw: boolean
+  private _isNeedRaw: boolean
   private _withCredentials: boolean
 
   constructor(opts: {
     raw: AxiosResponse
-    needRaw: boolean
+    isNeedRaw: boolean
     apiClient: JsonApiClient
     withCredentials: boolean
   }) {
@@ -31,9 +31,9 @@ export class JsonApiResponse<T> {
     this._rawData = opts.raw?.data
     this._links = opts.raw?.data?.links ?? {}
     this._apiClient = opts.apiClient
-    this._needRaw = opts.needRaw
+    this._isNeedRaw = opts.isNeedRaw
     this._withCredentials = opts.withCredentials
-    this._parseResponse(opts.raw, opts.needRaw)
+    this._parseResponse(opts.raw, opts.isNeedRaw)
   }
 
   get meta(): Record<string, unknown> {
@@ -88,7 +88,7 @@ export class JsonApiResponse<T> {
   /**
    * Get response headers.
    */
-  get headers(): Record<string, string> {
+  get headers(): RawAxiosResponseHeaders {
     return this._raw.headers
   }
 
@@ -109,7 +109,7 @@ export class JsonApiResponse<T> {
   /**
    * Parses and unwraps response data.
    */
-  private _parseResponse(raw: AxiosResponse, needRaw: boolean) {
+  private _parseResponse(raw: AxiosResponse, isNeedRaw: boolean) {
     if (
       raw.status === StatusCodes.NO_CONTENT ||
       raw.status === StatusCodes.RESET_CONTENT
@@ -117,7 +117,7 @@ export class JsonApiResponse<T> {
       return
     }
 
-    this._data = needRaw
+    this._data = isNeedRaw
       ? (raw.data as T)
       : (formatter.deserialize(raw.data) as T)
   }
@@ -152,7 +152,7 @@ export class JsonApiResponse<T> {
       endpoint: link,
       method: this._raw.config.method?.toUpperCase() as HTTP_METHODS,
       headers: this._raw.config.headers,
-      needRaw: this._needRaw,
+      isNeedRaw: this._isNeedRaw,
       withCredentials: this._withCredentials,
     }
 

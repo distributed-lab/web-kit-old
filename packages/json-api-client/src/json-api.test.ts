@@ -1,12 +1,11 @@
 import axios from 'axios'
 import { RAW_RESPONSE, PARSED_RESPONSE } from './test'
 import { JsonApiClient } from './json-api'
-import { mocked } from 'ts-jest/utils'
 import { MockWrapper } from './test'
 
 jest.mock('axios')
 
-const mockedAxios = mocked(axios, true)
+const mockedAxios = axios as jest.MockedFunction<typeof axios>
 
 const mockedData = {
   foo: {
@@ -75,7 +74,6 @@ describe('performs JsonApiClient request unit test', () => {
 
     beforeEach(() => {
       mockedAxios.mockResolvedValue(rawResponse)
-      mockedAxios.create.mockImplementation(() => mockedAxios)
 
       api = new JsonApiClient({
         baseUrl: 'http://localhost:8095',
@@ -148,7 +146,10 @@ describe('performs JsonApiClient request unit test', () => {
     const rawResponse = MockWrapper.makeAxiosResponse(RAW_RESPONSE)
     mockedAxios.mockResolvedValueOnce(rawResponse)
 
-    const api = new JsonApiClient({ baseUrl: 'http://localhost:8095' })
+    const api = new JsonApiClient({
+      baseUrl: 'http://localhost:8095',
+      axios: mockedAxios,
+    })
 
     return api.get('').then(({ data }) => expect(data).toEqual(PARSED_RESPONSE))
   })

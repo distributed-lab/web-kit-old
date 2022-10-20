@@ -1,19 +1,22 @@
-import { toCamelCaseDeep } from '@/helpers'
 import { AxiosError } from 'axios'
-import { JsonApiErrorMetaType, JsonApiErrorBaseNestedErrors } from '@/types'
+import {
+  JsonApiErrorMetaType,
+  JsonApiResponseErrors,
+  JsonApiResponseNestedErrors,
+} from '@/types'
 
 /**
  * Base class for server errors.
  */
 export class JsonApiErrorBase extends Error {
-  originalError: AxiosError
+  originalError: AxiosError<JsonApiResponseErrors>
   _meta: JsonApiErrorMetaType
   _detail: string
   _title: string | undefined
-  _nestedErrors: JsonApiErrorBaseNestedErrors
+  _nestedErrors: JsonApiResponseNestedErrors
 
-  constructor(originalError: AxiosError) {
-    super(originalError.message)
+  constructor(originalError: AxiosError<JsonApiResponseErrors>) {
+    super()
 
     this.originalError = originalError
     this._meta = {}
@@ -59,14 +62,14 @@ export class JsonApiErrorBase extends Error {
  * Generic server error response.
  */
 export class JsonApiError extends JsonApiErrorBase {
-  constructor(originalError: AxiosError) {
+  constructor(originalError: AxiosError<JsonApiResponseErrors>) {
     super(originalError)
 
-    const unwrappedError = originalError?.response?.data?.['errors']?.[0]
-    this.name = unwrappedError?.['title'] ?? ''
-    this._title = unwrappedError?.['title'] ?? ''
-    this._detail = unwrappedError?.['detail'] ?? ''
-    this._meta = toCamelCaseDeep(unwrappedError?.['meta'] || {})
+    const unwrappedError = originalError?.response?.data?.errors?.[0]
+    this.name = unwrappedError?.title ?? ''
+    this._title = unwrappedError?.title ?? ''
+    this._detail = unwrappedError?.detail ?? ''
+    this._meta = unwrappedError?.meta || {}
   }
 }
 
@@ -74,16 +77,17 @@ export class BadRequestError extends JsonApiError {
   /**
    * Wrap a raw API error response.
    */
-  constructor(originalError: AxiosError) {
+  constructor(originalError: AxiosError<JsonApiResponseErrors>) {
     super(originalError)
-    const errors = originalError?.response?.data?.['errors'] || []
+    const errors = originalError?.response?.data?.errors || []
+
     if (errors.length > 1) {
       this._title = 'Request contains some errors.'
       this._detail = 'Request contains some errors. Check "nestedErrors"'
-      this._nestedErrors = errors.map((err: JsonApiError) => ({
-        title: err?.['title'],
-        detail: err?.['detail'],
-        meta: toCamelCaseDeep(err?.['meta']),
+      this._nestedErrors = errors.map(err => ({
+        title: err?.title,
+        detail: err?.detail,
+        meta: err?.meta,
       }))
     }
   }
@@ -91,7 +95,7 @@ export class BadRequestError extends JsonApiError {
   /**
    * Errors for every invalid field.
    */
-  get nestedErrors(): JsonApiErrorBaseNestedErrors {
+  get nestedErrors(): JsonApiResponseNestedErrors {
     return this._nestedErrors
   }
 }
