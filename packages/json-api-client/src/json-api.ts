@@ -1,5 +1,4 @@
-const axios = require('axios').default
-import { AxiosError, AxiosInstance } from 'axios'
+import axios, { AxiosError, AxiosInstance } from 'axios'
 import { HTTP_METHODS } from './enums'
 import { JsonApiResponse } from '@/response'
 import {
@@ -125,7 +124,7 @@ export class JsonApiClient {
 
     return parseJsonApiResponse<T>({
       raw: response,
-      needRaw: Boolean(opts?.needRaw),
+      isNeedRaw: Boolean(opts?.isNeedRaw),
       apiClient: this,
       withCredentials: Boolean(opts?.withCredentials),
     })
@@ -138,12 +137,14 @@ export class JsonApiClient {
   get<T>(
     endpoint: string,
     query: Record<string, unknown> = {},
+    isNeedRaw?: boolean,
   ): Promise<JsonApiResponse<T>> {
     return this.request<T>({
       method: HTTP_METHODS.GET,
       endpoint,
       query,
       isEmptyBodyAllowed: true,
+      isNeedRaw,
     })
   }
 
@@ -151,11 +152,16 @@ export class JsonApiClient {
    * Makes a `POST` to a target `endpoint` with the provided `data` as body.
    * Parses the response in JsonApi format.
    */
-  post<T>(endpoint: string, data: unknown): Promise<JsonApiResponse<T>> {
+  post<T>(
+    endpoint: string,
+    data: unknown,
+    isNeedRaw?: boolean,
+  ): Promise<JsonApiResponse<T>> {
     return this.request<T>({
       method: HTTP_METHODS.POST,
       endpoint,
       data,
+      isNeedRaw,
     })
   }
 

@@ -1,6 +1,7 @@
 import { errors } from '../errors'
 import { parseJsonApiError } from './parse-json-api-error'
 import { AxiosError } from 'axios'
+import { JsonApiResponseErrors } from '../types'
 
 describe('errors', () => {
   const testCases = [
@@ -55,7 +56,7 @@ describe('errors', () => {
           status: testCase.status,
           data: testCase.data,
         },
-      } as AxiosError)
+      } as AxiosError<JsonApiResponseErrors>)
 
       expect(error).toBeInstanceOf(testCase.expectedError)
     })

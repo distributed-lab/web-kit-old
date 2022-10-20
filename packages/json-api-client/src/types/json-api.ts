@@ -60,7 +60,7 @@ export type JsonApiClientRequestOpts = {
   query?: unknown
   contentType?: string
   isEmptyBodyAllowed?: boolean
-  needRaw?: boolean
+  isNeedRaw?: boolean
   withCredentials?: boolean
 }
 

@@ -24,7 +24,7 @@ describe('JsonApi response data parsing unit test', () => {
     const rawResponse = MockWrapper.makeAxiosResponse(RAW_RESPONSE)
     const response = parseJsonApiResponse({
       raw: rawResponse,
-      needRaw: false,
+      isNeedRaw: false,
       apiClient: mockedApi,
       withCredentials: true,
     })
@@ -35,7 +35,7 @@ describe('JsonApi response data parsing unit test', () => {
     const rawResponse = MockWrapper.makeAxiosResponse({})
     const response = parseJsonApiResponse({
       raw: rawResponse,
-      needRaw: false,
+      isNeedRaw: false,
       apiClient: mockedApi,
       withCredentials: true,
     })
@@ -46,7 +46,7 @@ describe('JsonApi response data parsing unit test', () => {
     const rawResponse = MockWrapper.makeAxiosResponse(RAW_RESPONSE)
     const response = parseJsonApiResponse({
       raw: rawResponse,
-      needRaw: false,
+      isNeedRaw: false,
       apiClient: mockedApi,
       withCredentials: true,
     })
@@ -64,7 +64,7 @@ describe('JsonApi response data parsing unit test', () => {
 
     const response = parseJsonApiResponse({
       raw: rawResponse,
-      needRaw: false,
+      isNeedRaw: false,
       apiClient: api,
       withCredentials: true,
     })
@@ -80,7 +80,7 @@ describe('JsonApi response data parsing unit test', () => {
     const rawResponse = MockWrapper.makeAxiosResponse(RAW_RESPONSE)
     const response = parseJsonApiResponse({
       raw: rawResponse,
-      needRaw: true,
+      isNeedRaw: true,
       apiClient: mockedApi,
       withCredentials: true,
     })
@@ -92,7 +92,7 @@ describe('JsonApi response data parsing unit test', () => {
     const rawResponse = MockWrapper.makeAxiosResponse(RAW_RESPONSE)
     const response = parseJsonApiResponse({
       raw: rawResponse,
-      needRaw: false,
+      isNeedRaw: false,
       apiClient: mockedApi,
       withCredentials: true,
     })
@@ -110,7 +110,7 @@ describe('JsonApi response data parsing unit test', () => {
 
     const response = parseJsonApiResponse({
       raw: rawResponse,
-      needRaw: false,
+      isNeedRaw: false,
       apiClient: mockedApi,
       withCredentials: true,
     })
@@ -125,7 +125,7 @@ describe('JsonApi response data parsing unit test', () => {
 
     const response = parseJsonApiResponse({
       raw: rawResponse,
-      needRaw: false,
+      isNeedRaw: false,
       apiClient: mockedApi,
       withCredentials: true,
     })
@@ -143,7 +143,7 @@ describe('JsonApi response data parsing unit test', () => {
 
     const response = parseJsonApiResponse({
       raw: rawResponse,
-      needRaw: false,
+      isNeedRaw: false,
       apiClient: mockedApi,
       withCredentials: true,
     })
@@ -158,7 +158,7 @@ describe('JsonApi response data parsing unit test', () => {
       endpoint: response.links.next,
       method: 'GET',
       headers: {},
-      needRaw: false,
+      isNeedRaw: false,
       withCredentials: true,
     })
   })
