@@ -91,12 +91,6 @@ export class JsonApiClient {
     const config: JsonApiClientRequestConfig = {
       baseURL: this.baseUrl,
       params: opts.query ?? {},
-      paramsSerializer: {
-        encode: (params: object): string =>
-          Object.entries(params)
-            .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
-            .join('&'),
-      },
       data: opts.isEmptyBodyAllowed && !opts.data ? undefined : opts.data || {},
       method: opts.method,
       headers: opts?.headers ?? {},
