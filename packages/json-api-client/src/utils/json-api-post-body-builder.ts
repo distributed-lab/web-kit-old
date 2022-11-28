@@ -33,6 +33,7 @@ export class JsonApiPostBodyBuilder {
 
   setImplementation(implementation: JsonApiImplementation) {
     this.body.jsonapi = implementation
+    return this
   }
 
   setLinks(links: JsonApiLinks) {
@@ -81,6 +82,7 @@ export class JsonApiPostBodyBuilder {
       this.body.jsonapi = {
         version: version,
       }
+    return this
   }
 
   setImplementationExt(ext: URL[]) {
@@ -89,6 +91,7 @@ export class JsonApiPostBodyBuilder {
       this.body.jsonapi = {
         ext: ext,
       }
+    return this
   }
 
   setImplementationProfile(profile: URL[]) {
@@ -97,6 +100,7 @@ export class JsonApiPostBodyBuilder {
       this.body.jsonapi = {
         profile: profile,
       }
+    return this
   }
 
   setImplementationMeta(meta: JsonApiMeta) {
@@ -105,6 +109,7 @@ export class JsonApiPostBodyBuilder {
       this.body.jsonapi = {
         meta: meta,
       }
+    return this
   }
 
   setLinksSelf(self: JsonApiLink | URL | null) {
@@ -113,6 +118,7 @@ export class JsonApiPostBodyBuilder {
       this.body.links = {
         self: self,
       }
+    return this
   }
 
   setLinksRelated(related: URL | JsonApiLink | null) {
@@ -121,6 +127,7 @@ export class JsonApiPostBodyBuilder {
       this.body.links = {
         related: related,
       }
+    return this
   }
 
   setLinksDescribedby(describedby: URL | JsonApiLink | null) {
@@ -129,6 +136,7 @@ export class JsonApiPostBodyBuilder {
       this.body.links = {
         describedby: describedby,
       }
+    return this
   }
 
   setLinksFirst(first: URL | JsonApiLink | null) {
@@ -137,6 +145,7 @@ export class JsonApiPostBodyBuilder {
       this.body.links = {
         first: first,
       }
+    return this
   }
 
   setLinksLast(last: URL | JsonApiLink | null) {
@@ -145,6 +154,7 @@ export class JsonApiPostBodyBuilder {
       this.body.links = {
         last: last,
       }
+    return this
   }
 
   setLinksPrev(prev: URL | JsonApiLink | null) {
@@ -153,6 +163,7 @@ export class JsonApiPostBodyBuilder {
       this.body.links = {
         prev: prev,
       }
+    return this
   }
 
   setLinksNext(next: URL | JsonApiLink | null) {
@@ -161,6 +172,7 @@ export class JsonApiPostBodyBuilder {
       this.body.links = {
         next: next,
       }
+    return this
   }
 
   build() {
@@ -175,5 +187,6 @@ export class JsonApiPostBodyBuilder {
         type: '',
       },
     }
+    return this
   }
 }
