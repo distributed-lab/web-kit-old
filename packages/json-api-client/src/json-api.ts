@@ -5,8 +5,9 @@ import {
   JsonApiClientConfig,
   JsonApiClientRequestConfig,
   JsonApiClientRequestOpts,
+  JsonApiDefaultMeta,
   JsonApiResponseErrors,
-  URL,
+  URL
 } from './types'
 import {
   flattenToAxiosJsonApiQuery,
@@ -83,9 +84,9 @@ export class JsonApiClient {
   /**
    * Performs a http request
    */
-  async request<T>(
+  async request<T, U = JsonApiDefaultMeta>(
     opts: JsonApiClientRequestOpts,
-  ): Promise<JsonApiResponse<T>> {
+  ): Promise<JsonApiResponse<T, U>> {
     let response
 
     const config: JsonApiClientRequestConfig = {
@@ -116,7 +117,7 @@ export class JsonApiClient {
       throw parseJsonApiError(e as AxiosError<JsonApiResponseErrors>)
     }
 
-    return parseJsonApiResponse<T>({
+    return parseJsonApiResponse<T, U>({
       raw: response,
       isNeedRaw: Boolean(opts?.isNeedRaw),
       apiClient: this,
@@ -128,12 +129,12 @@ export class JsonApiClient {
    * Makes a `GET` to a target `endpoint` with the provided `query` params.
    * Parses the response in JsonApi format.
    */
-  get<T>(
+  get<T, U = JsonApiDefaultMeta>(
     endpoint: string,
     query: Record<string, unknown> = {},
     isNeedRaw?: boolean,
-  ): Promise<JsonApiResponse<T>> {
-    return this.request<T>({
+  ): Promise<JsonApiResponse<T, U>> {
+    return this.request<T, U>({
       method: HTTP_METHODS.GET,
       endpoint,
       query,
@@ -146,12 +147,12 @@ export class JsonApiClient {
    * Makes a `POST` to a target `endpoint` with the provided `data` as body.
    * Parses the response in JsonApi format.
    */
-  post<T>(
+  post<T, U = JsonApiDefaultMeta>(
     endpoint: string,
     data: unknown,
     isNeedRaw?: boolean,
-  ): Promise<JsonApiResponse<T>> {
-    return this.request<T>({
+  ): Promise<JsonApiResponse<T, U>> {
+    return this.request<T, U>({
       method: HTTP_METHODS.POST,
       endpoint,
       data,
@@ -164,8 +165,8 @@ export class JsonApiClient {
    * Signing can be enabled with `needSign` argument. Parses the response in
    * JsonApi format.
    */
-  patch<T>(endpoint: string, data?: unknown): Promise<JsonApiResponse<T>> {
-    return this.request<T>({
+  patch<T, U = JsonApiDefaultMeta>(endpoint: string, data?: unknown): Promise<JsonApiResponse<T, U>> {
+    return this.request<T, U>({
       method: HTTP_METHODS.PATCH,
       endpoint,
       data,
@@ -176,8 +177,8 @@ export class JsonApiClient {
    * Makes a `PUT` to a target `endpoint` with the provided `data` as body.
    * Parses the response in JsonApi format.
    */
-  put<T>(endpoint: string, data: unknown): Promise<JsonApiResponse<T>> {
-    return this.request<T>({
+  put<T, U = JsonApiDefaultMeta>(endpoint: string, data: unknown): Promise<JsonApiResponse<T, U>> {
+    return this.request<T, U>({
       method: HTTP_METHODS.PUT,
       endpoint,
       data,
@@ -188,8 +189,8 @@ export class JsonApiClient {
    * Makes a `DELETE` to a target `endpoint` with the provided `data` as body.
    * Parses the response in JsonApi format.
    */
-  delete<T>(endpoint: string, data?: unknown): Promise<JsonApiResponse<T>> {
-    return this.request<T>({
+  delete<T, U = JsonApiDefaultMeta>(endpoint: string, data?: unknown): Promise<JsonApiResponse<T, U>> {
+    return this.request<T, U>({
       method: HTTP_METHODS.DELETE,
       endpoint,
       data,

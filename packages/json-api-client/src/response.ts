@@ -2,7 +2,7 @@ import Jsona from 'jsona'
 import isEmpty from 'lodash/isEmpty'
 
 import { AxiosResponse, RawAxiosResponseHeaders } from 'axios'
-import { Endpoint, JsonApiLinkFields, JsonApiResponseLinks } from './types'
+import { Endpoint, JsonApiDefaultMeta, JsonApiLinkFields, JsonApiResponseLinks } from './types'
 import { JsonApiClient } from '@/json-api'
 import { StatusCodes } from 'http-status-codes'
 import { HTTP_METHODS } from '@/enums'
@@ -12,7 +12,7 @@ const formatter = new Jsona()
 /**
  * API response wrapper.
  */
-export class JsonApiResponse<T> {
+export class JsonApiResponse<T, U = JsonApiDefaultMeta> {
   private _raw: AxiosResponse
   private _rawData!: Record<string, unknown>
   private _data!: T
@@ -20,6 +20,7 @@ export class JsonApiResponse<T> {
   private _apiClient: JsonApiClient
   private _isNeedRaw: boolean
   private _withCredentials: boolean
+  private _meta: U
 
   constructor(opts: {
     raw: AxiosResponse
@@ -34,10 +35,11 @@ export class JsonApiResponse<T> {
     this._isNeedRaw = opts.isNeedRaw
     this._withCredentials = opts.withCredentials
     this._parseResponse(opts.raw, opts.isNeedRaw)
+    this._meta = opts.raw?.data?.meta || {}
   }
 
-  get meta(): Record<string, unknown> {
-    return (this.rawData.meta || {}) as Record<string, unknown>
+  get meta(): U {
+    return this._meta
   }
 
   /**
@@ -141,7 +143,7 @@ export class JsonApiResponse<T> {
     return link.replace(intersection, '')
   }
 
-  public async fetchPage(page: JsonApiLinkFields): Promise<JsonApiResponse<T>> {
+  public async fetchPage(page: JsonApiLinkFields): Promise<JsonApiResponse<T, U>> {
     if (!this.isLinksExist) {
       throw new TypeError('There are no links in response')
     }
@@ -156,6 +158,6 @@ export class JsonApiResponse<T> {
       withCredentials: this._withCredentials,
     }
 
-    return this._apiClient.request<T>(JsonApiClientRequestOpts)
+    return this._apiClient.request<T, U>(JsonApiClientRequestOpts)
   }
 }

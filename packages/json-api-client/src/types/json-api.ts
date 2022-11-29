@@ -84,3 +84,5 @@ export type JsonApiResponseNestedErrors = JsonApiResponseError[]
 export type JsonApiResponseErrors = {
   errors?: JsonApiResponseNestedErrors
 }
+
+export type JsonApiDefaultMeta = Record<string, unknown>
