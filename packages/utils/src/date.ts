@@ -8,12 +8,24 @@ import dayjs, {
 } from 'dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
-import { IsoDate, UnixDate } from '@/types'
+import calendar from 'dayjs/plugin/calendar'
+import { IsoDate, UnixDate, StringDate } from '@/types'
+
+const INPUT_DATE_FORMAT: OptionType = 'DD/MM/YYYY'
 
 export class DateUtil {
+  static get ISOFormat(): IsoDate {
+    return 'YYYY-MM-DDT00:00:00+00:00'
+  }
+
+  static get minDate(): IsoDate {
+    return this.toISO('01/01/1900')
+  }
+
   private static _dayjs(date: ConfigType, format?: OptionType): Dayjs {
     dayjs.extend(isSameOrBefore)
     dayjs.extend(isSameOrAfter)
+    dayjs.extend(calendar)
 
     return format ? dayjs(date, format) : dayjs(date)
   }
@@ -22,8 +34,26 @@ export class DateUtil {
     return this._dayjs(date, format).unix()
   }
 
-  public static toISO(date?: ConfigType): IsoDate {
-    return this._dayjs(date).toISOString()
+  public static toMs(date: ConfigType, format?: OptionType): UnixDate {
+    return this._dayjs(date, format).valueOf()
+  }
+
+  public static toISO(date?: ConfigType, format?: OptionType): IsoDate {
+    return this._dayjs(date, format).toISOString()
+  }
+
+  public static toHuman(date: ConfigType, format?: OptionType): StringDate {
+    return this._dayjs(date, format).calendar(null, {
+      sameDay: '[Today at] HH:mm',
+      lastDay: '[Yesterday at] HH:mm',
+      lastWeek: '[Last] dddd [at] HH:mm',
+      nextWeek: '[Next] dddd [at] HH:mm',
+      sameElse: 'DD/MM/YYYY',
+    })
+  }
+
+  public static toInput(date: ConfigType, format?: OptionType): StringDate {
+    return this._dayjs(date, format).format(INPUT_DATE_FORMAT as string)
   }
 
   public static now(format?: OptionType): Dayjs {
