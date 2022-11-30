@@ -45,7 +45,6 @@ export type JsonApiRelationships<T extends string = string> = Record<
 export type JsonApiRecordBase<T extends string> = {
   id: string
   type: T
-  relationships?: JsonApiRelationships
 }
 
 export type JsonApiResponseLinks = {
@@ -94,12 +93,15 @@ export type JsonApiRecord = {
   included?: JsonApiRecord[]
 } & JsonApiLinks
 
-export type JsonApiRecordData<T extends string = string> =
-  JsonApiRecordBase<T> &
-    JsonApiLinks & {
-      attributes?: JsonApiAttributes
-      relationships?: JsonApiRelationships
-    }
+export type JsonApiRecordData<T extends string = string> = Omit<
+  JsonApiRecordBase<T>,
+  'id'
+> &
+  Partial<Pick<JsonApiRecordBase<T>, 'id'>> &
+  JsonApiLinks & {
+    attributes?: JsonApiAttributes
+    relationships?: JsonApiRelationships
+  }
 
 export type JsonApiLinks = {
   links?: { [key in JsonApiLinkFields]?: Endpoint }
