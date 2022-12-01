@@ -12,9 +12,9 @@
 <ul class="tsd-breadcrumb">
 <li><a href="../modules.html">@distributedlab/web-kit</a></li>
 <li><a href="_distributedlab_json_api_client.html">@distributedlab/json-api-client</a></li></ul>
-<h1>Module @distributedlab/json-api-client - v2.0.4</h1></div><aside class="tsd-sources">
+<h1>Module @distributedlab/json-api-client - v2.1.0</h1></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/distributed-lab/web-kit/blob/25ba434/packages/json-api-client/src/index.ts#L1">packages/json-api-client/src/index.ts:1</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/distributed-lab/web-kit/blob/97dde46/packages/json-api-client/src/index.ts#L1">packages/json-api-client/src/index.ts:1</a></li></ul></aside>
 <section class="tsd-panel-group">
 <section class="tsd-panel tsd-typography">
 <a href="#distributedlabjson-api-client" id="distributedlabjson-api-client" style="color: inherit; text-decoration: none;">
@@ -42,6 +42,12 @@
 <p>All notable changes to this project will be documented in this file.</p>
 <p>The format is based on <a href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,
 and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
+<details><summary>2.1.0</summary>
+  <h4>Added</h4>
+  <ul>
+    <li>Util that helps to create the body for POST requests</li>
+  </ul>
+</details>
 <details><summary>2.0.4</summary>
   <h4>Removed</h4>
   <ul>
@@ -123,13 +129,17 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <section class="tsd-index-section">
 <h3 class="tsd-index-heading">Type Aliases</h3>
 <div class="tsd-index-list"><a href="../types/_distributedlab_json_api_client.Endpoint.html" class="tsd-index-link tsd-kind-type-alias tsd-parent-kind-module"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-4194304-path"></rect><path d="M11.31 16V8.224H8.91V7.24H14.79V8.224H12.39V16H11.31Z" fill="var(--color-text)" id="icon-4194304-text"></path></svg><span>Endpoint</span></a>
+<a href="../types/_distributedlab_json_api_client.JsonApiAttributes.html" class="tsd-index-link tsd-kind-type-alias tsd-parent-kind-module"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg><span>Json<wbr/>Api<wbr/>Attributes</span></a>
 <a href="../types/_distributedlab_json_api_client.JsonApiClientConfig.html" class="tsd-index-link tsd-kind-type-alias tsd-parent-kind-module"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg><span>Json<wbr/>Api<wbr/>Client<wbr/>Config</span></a>
 <a href="../types/_distributedlab_json_api_client.JsonApiClientRequestConfig.html" class="tsd-index-link tsd-kind-type-alias tsd-parent-kind-module"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg><span>Json<wbr/>Api<wbr/>Client<wbr/>Request<wbr/>Config</span></a>
 <a href="../types/_distributedlab_json_api_client.JsonApiClientRequestConfigHeaders.html" class="tsd-index-link tsd-kind-type-alias tsd-parent-kind-module"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg><span>Json<wbr/>Api<wbr/>Client<wbr/>Request<wbr/>Config<wbr/>Headers</span></a>
 <a href="../types/_distributedlab_json_api_client.JsonApiClientRequestOpts.html" class="tsd-index-link tsd-kind-type-alias tsd-parent-kind-module"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg><span>Json<wbr/>Api<wbr/>Client<wbr/>Request<wbr/>Opts</span></a>
 <a href="../types/_distributedlab_json_api_client.JsonApiClientRequestParams.html" class="tsd-index-link tsd-kind-type-alias tsd-parent-kind-module"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg><span>Json<wbr/>Api<wbr/>Client<wbr/>Request<wbr/>Params</span></a>
 <a href="../types/_distributedlab_json_api_client.JsonApiErrorMetaType.html" class="tsd-index-link tsd-kind-type-alias tsd-parent-kind-module"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg><span>Json<wbr/>Api<wbr/>Error<wbr/>Meta<wbr/>Type</span></a>
+<a href="../types/_distributedlab_json_api_client.JsonApiLinks.html" class="tsd-index-link tsd-kind-type-alias tsd-parent-kind-module"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg><span>Json<wbr/>Api<wbr/>Links</span></a>
+<a href="../types/_distributedlab_json_api_client.JsonApiRecord.html" class="tsd-index-link tsd-kind-type-alias tsd-parent-kind-module"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg><span>Json<wbr/>Api<wbr/>Record</span></a>
 <a href="../types/_distributedlab_json_api_client.JsonApiRecordBase.html" class="tsd-index-link tsd-kind-type-alias tsd-parent-kind-module"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg><span>Json<wbr/>Api<wbr/>Record<wbr/>Base</span></a>
+<a href="../types/_distributedlab_json_api_client.JsonApiRecordData.html" class="tsd-index-link tsd-kind-type-alias tsd-parent-kind-module"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg><span>Json<wbr/>Api<wbr/>Record<wbr/>Data</span></a>
 <a href="../types/_distributedlab_json_api_client.JsonApiRelationship.html" class="tsd-index-link tsd-kind-type-alias tsd-parent-kind-module"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg><span>Json<wbr/>Api<wbr/>Relationship</span></a>
 <a href="../types/_distributedlab_json_api_client.JsonApiRelationships.html" class="tsd-index-link tsd-kind-type-alias tsd-parent-kind-module"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg><span>Json<wbr/>Api<wbr/>Relationships</span></a>
 <a href="../types/_distributedlab_json_api_client.JsonApiResponseError.html" class="tsd-index-link tsd-kind-type-alias tsd-parent-kind-module"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg><span>Json<wbr/>Api<wbr/>Response<wbr/>Error</span></a>
@@ -170,7 +180,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <ul>
 <li class="current"><a href="../modules.html">@distributedlab/web-<wbr/>kit</a>
 <ul>
-<li class="current selected tsd-kind-module"><a href="_distributedlab_json_api_client.html">@distributedlab/json-<wbr/>api-<wbr/>client -<wbr/> v2.0.4</a></li>
+<li class="current selected tsd-kind-module"><a href="_distributedlab_json_api_client.html">@distributedlab/json-<wbr/>api-<wbr/>client -<wbr/> v2.1.0</a></li>
 <li class="tsd-kind-module"><a href="_distributedlab_utils.html">@distributedlab/utils -<wbr/> v1.1.0</a></li></ul></li></ul></div></details></nav>
 <nav class="tsd-navigation secondary menu-sticky">
 <ul>
@@ -189,13 +199,17 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html">Semant
 <li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/_distributedlab_json_api_client.NotFoundError.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-128-path"></use><use href="#icon-128-text"></use></svg>Not<wbr/>Found<wbr/>Error</a></li>
 <li class="tsd-kind-class tsd-parent-kind-module"><a href="../classes/_distributedlab_json_api_client.UnauthorizedError.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-128-path"></use><use href="#icon-128-text"></use></svg>Unauthorized<wbr/>Error</a></li>
 <li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="../types/_distributedlab_json_api_client.Endpoint.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Endpoint</a></li>
+<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="../types/_distributedlab_json_api_client.JsonApiAttributes.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Json<wbr/>Api<wbr/>Attributes</a></li>
 <li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="../types/_distributedlab_json_api_client.JsonApiClientConfig.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Json<wbr/>Api<wbr/>Client<wbr/>Config</a></li>
 <li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="../types/_distributedlab_json_api_client.JsonApiClientRequestConfig.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Json<wbr/>Api<wbr/>Client<wbr/>Request<wbr/>Config</a></li>
 <li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="../types/_distributedlab_json_api_client.JsonApiClientRequestConfigHeaders.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Json<wbr/>Api<wbr/>Client<wbr/>Request<wbr/>Config<wbr/>Headers</a></li>
 <li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="../types/_distributedlab_json_api_client.JsonApiClientRequestOpts.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Json<wbr/>Api<wbr/>Client<wbr/>Request<wbr/>Opts</a></li>
 <li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="../types/_distributedlab_json_api_client.JsonApiClientRequestParams.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Json<wbr/>Api<wbr/>Client<wbr/>Request<wbr/>Params</a></li>
 <li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="../types/_distributedlab_json_api_client.JsonApiErrorMetaType.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Json<wbr/>Api<wbr/>Error<wbr/>Meta<wbr/>Type</a></li>
+<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="../types/_distributedlab_json_api_client.JsonApiLinks.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Json<wbr/>Api<wbr/>Links</a></li>
+<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="../types/_distributedlab_json_api_client.JsonApiRecord.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Json<wbr/>Api<wbr/>Record</a></li>
 <li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="../types/_distributedlab_json_api_client.JsonApiRecordBase.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Json<wbr/>Api<wbr/>Record<wbr/>Base</a></li>
+<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="../types/_distributedlab_json_api_client.JsonApiRecordData.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Json<wbr/>Api<wbr/>Record<wbr/>Data</a></li>
 <li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="../types/_distributedlab_json_api_client.JsonApiRelationship.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Json<wbr/>Api<wbr/>Relationship</a></li>
 <li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="../types/_distributedlab_json_api_client.JsonApiRelationships.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Json<wbr/>Api<wbr/>Relationships</a></li>
 <li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="../types/_distributedlab_json_api_client.JsonApiResponseError.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Json<wbr/>Api<wbr/>Response<wbr/>Error</a></li>
