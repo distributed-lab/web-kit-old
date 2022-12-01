@@ -39,7 +39,7 @@ export class DateUtil {
   }
 
   public static toISO(date?: ConfigType, format?: OptionType): IsoDate {
-    return this._dayjs(date, format).toISOString()
+    return this._dayjs(date, format).format(this.ISOFormat)
   }
 
   public static toHuman(date: ConfigType, format?: OptionType): StringDate {
