@@ -2,7 +2,12 @@ import Jsona from 'jsona'
 import isEmpty from 'lodash/isEmpty'
 
 import { AxiosResponse, RawAxiosResponseHeaders } from 'axios'
-import { Endpoint, JsonApiDefaultMeta, JsonApiLinkFields, JsonApiResponseLinks } from './types'
+import {
+  Endpoint,
+  JsonApiDefaultMeta,
+  JsonApiLinkFields,
+  JsonApiResponseLinks,
+} from './types'
 import { JsonApiClient } from '@/json-api'
 import { StatusCodes } from 'http-status-codes'
 import { HTTP_METHODS } from '@/enums'
@@ -143,7 +148,9 @@ export class JsonApiResponse<T, U = JsonApiDefaultMeta> {
     return link.replace(intersection, '')
   }
 
-  public async fetchPage(page: JsonApiLinkFields): Promise<JsonApiResponse<T, U>> {
+  public async fetchPage(
+    page: JsonApiLinkFields,
+  ): Promise<JsonApiResponse<T, U>> {
     if (!this.isLinksExist) {
       throw new TypeError('There are no links in response')
     }
