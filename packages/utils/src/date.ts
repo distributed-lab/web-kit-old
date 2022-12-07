@@ -8,25 +8,32 @@ import dayjs, {
 } from 'dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+import isBetween from 'dayjs/plugin/isBetween'
 import calendar from 'dayjs/plugin/calendar'
-import { IsoDate, UnixDate, StringDate } from '@/types'
+import utc from 'dayjs/plugin/utc'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+import duration, { Duration } from 'dayjs/plugin/duration'
+import {
+  IsoDate,
+  UnixDate,
+  StringDate,
+  InclusivityType,
+  DurationUnits,
+  CalendarType,
+} from '@/types'
 
-const INPUT_DATE_FORMAT: OptionType = 'DD/MM/YYYY'
+dayjs.extend(isSameOrBefore)
+dayjs.extend(isSameOrAfter)
+dayjs.extend(isBetween)
+dayjs.extend(calendar)
+dayjs.extend(utc)
+dayjs.extend(relativeTime)
+dayjs.extend(duration)
+dayjs.extend(customParseFormat)
 
 export class DateUtil {
-  static get ISOFormat(): IsoDate {
-    return 'YYYY-MM-DDT00:00:00+00:00'
-  }
-
-  static get minDate(): IsoDate {
-    return this.toISO('01/01/1900')
-  }
-
   private static _dayjs(date: ConfigType, format?: OptionType): Dayjs {
-    dayjs.extend(isSameOrBefore)
-    dayjs.extend(isSameOrAfter)
-    dayjs.extend(calendar)
-
     return format ? dayjs(date, format) : dayjs(date)
   }
 
@@ -39,25 +46,47 @@ export class DateUtil {
   }
 
   public static toISO(date?: ConfigType, format?: OptionType): IsoDate {
-    return this._dayjs(date, format).format(this.ISOFormat)
+    return this._dayjs(date, format).toISOString()
   }
 
-  public static toHuman(date: ConfigType, format?: OptionType): StringDate {
-    return this._dayjs(date, format).calendar(null, {
-      sameDay: '[Today at] HH:mm',
-      lastDay: '[Yesterday at] HH:mm',
-      lastWeek: '[Last] dddd [at] HH:mm',
-      nextWeek: '[Next] dddd [at] HH:mm',
-      sameElse: 'DD/MM/YYYY',
-    })
+  public static toHuman(
+    date: ConfigType,
+    format?: OptionType,
+    calendar?: CalendarType,
+  ): StringDate {
+    return this._dayjs(date, format).calendar(null, calendar)
   }
 
-  public static toInput(date: ConfigType, format?: OptionType): StringDate {
-    return this._dayjs(date, format).format(INPUT_DATE_FORMAT as string)
+  public static toRFC3339(date: ConfigType) {
+    if (!date) {
+      return ''
+    }
+
+    return this._dayjs(date).utc(true).format('YYYY-MM-DDTHH:mm:ss') + 'Z'
+  }
+
+  public static toDate(date: ConfigType, format?: OptionType): Date {
+    return this._dayjs(date, format).toDate()
+  }
+
+  public static date(date?: ConfigType, format?: OptionType): Dayjs {
+    return this._dayjs(date, format)
+  }
+
+  public static utc(date?: ConfigType, format?: OptionType): Dayjs {
+    return this._dayjs(date, format).utc()
   }
 
   public static now(format?: OptionType): Dayjs {
     return this._dayjs(undefined, format)
+  }
+
+  public static startOf(
+    unit: OpUnitType,
+    date: ConfigType,
+    format?: OptionType,
+  ) {
+    return this._dayjs(date, format).startOf(unit)
   }
 
   public static get(date: ConfigType, unit: UnitType): number {
@@ -80,6 +109,14 @@ export class DateUtil {
         [K in typeof unit[number]]: number
       },
     )
+  }
+
+  public static duration(units: DurationUnits): Duration {
+    return dayjs.duration(units)
+  }
+
+  public static millisecondOf(duration: Duration): number {
+    return duration.asMilliseconds()
   }
 
   public static add(
@@ -138,6 +175,21 @@ export class DateUtil {
     return this._dayjs(targetDate).isSameOrBefore(comparisonDate)
   }
 
+  public static isBetween(
+    targetDate?: ConfigType,
+    startDate?: ConfigType,
+    endDate?: ConfigType,
+    unit?: ManipulateType,
+    inclusivity?: InclusivityType,
+  ): boolean {
+    return this._dayjs(targetDate).isBetween(
+      startDate,
+      endDate,
+      unit,
+      inclusivity,
+    )
+  }
+
   public static diff(
     targetDate: ConfigType,
     comparisonDate: ConfigType,
@@ -149,5 +201,19 @@ export class DateUtil {
       unit,
       isTruncated,
     )
+  }
+
+  public static async locale(
+    preset?: string | ILocale,
+    object?: Partial<ILocale>,
+    isLocal?: boolean,
+  ): Promise<string> {
+    if (typeof preset === 'string') {
+      return await import(`dayjs/locale/${preset}`).then(() =>
+        dayjs.locale(preset),
+      )
+    }
+
+    return dayjs.locale(preset, object, isLocal)
   }
 }
