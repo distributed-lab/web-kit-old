@@ -11,9 +11,9 @@ import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import isBetween from 'dayjs/plugin/isBetween'
 import calendar from 'dayjs/plugin/calendar'
 import utc from 'dayjs/plugin/utc'
-import relativeTime from 'dayjs/plugin/relativeTime'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import duration, { Duration } from 'dayjs/plugin/duration'
+import { LOCALES } from '@/const/locales'
 import {
   IsoDate,
   UnixDate,
@@ -28,7 +28,6 @@ dayjs.extend(isSameOrAfter)
 dayjs.extend(isBetween)
 dayjs.extend(calendar)
 dayjs.extend(utc)
-dayjs.extend(relativeTime)
 dayjs.extend(duration)
 dayjs.extend(customParseFormat)
 
@@ -41,7 +40,7 @@ export class DateUtil {
     return this._dayjs(date, format).unix()
   }
 
-  public static toMs(date: ConfigType, format?: OptionType): UnixDate {
+  public static toMs(date?: ConfigType, format?: OptionType): UnixDate {
     return this._dayjs(date, format).valueOf()
   }
 
@@ -50,14 +49,14 @@ export class DateUtil {
   }
 
   public static toHuman(
-    date: ConfigType,
+    date?: ConfigType,
     format?: OptionType,
     calendar?: CalendarType,
   ): StringDate {
     return this._dayjs(date, format).calendar(null, calendar)
   }
 
-  public static toRFC3339(date: ConfigType) {
+  public static toRFC3339(date?: ConfigType): IsoDate {
     if (!date) {
       return ''
     }
@@ -65,7 +64,7 @@ export class DateUtil {
     return this._dayjs(date).utc(true).format('YYYY-MM-DDTHH:mm:ss') + 'Z'
   }
 
-  public static toDate(date: ConfigType, format?: OptionType): Date {
+  public static toDate(date?: ConfigType, format?: OptionType): Date {
     return this._dayjs(date, format).toDate()
   }
 
@@ -74,7 +73,7 @@ export class DateUtil {
   }
 
   public static utc(date?: ConfigType, format?: OptionType): Dayjs {
-    return this._dayjs(date, format).utc()
+    return this._dayjs(date, format).utc(true)
   }
 
   public static now(format?: OptionType): Dayjs {
@@ -83,9 +82,9 @@ export class DateUtil {
 
   public static startOf(
     unit: OpUnitType,
-    date: ConfigType,
+    date?: ConfigType,
     format?: OptionType,
-  ) {
+  ): Dayjs {
     return this._dayjs(date, format).startOf(unit)
   }
 
@@ -203,17 +202,13 @@ export class DateUtil {
     )
   }
 
-  public static async locale(
+  public static locale(
     preset?: string | ILocale,
     object?: Partial<ILocale>,
     isLocal?: boolean,
-  ): Promise<string> {
-    if (typeof preset === 'string') {
-      return await import(`dayjs/locale/${preset}`).then(() =>
-        dayjs.locale(preset),
-      )
-    }
-
-    return dayjs.locale(preset, object, isLocal)
+  ): string {
+    return !object && typeof preset === 'string'
+      ? dayjs.locale(LOCALES[preset])
+      : dayjs.locale(preset, object, isLocal)
   }
 }
