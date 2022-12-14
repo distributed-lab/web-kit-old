@@ -22,12 +22,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
       <li>toDate()<li>
       <li>date()<li>
       <li>utc()</li>
+      <li>tz()</li>
       <li>startOf()</li>
       <li>duration()</li>
       <li>millisecondOf()</li>
       <li>isBetween()</li>
       <li>locale()</li>
+      <li>setDefaultTimezone()</li>
     </ul>
+  <h5>Customize an ru locale</h5>
   <h4>Changed</h4>
     <ul>
       <li>toISO() method in DateUtil</li>

@@ -12,8 +12,9 @@ import isBetween from 'dayjs/plugin/isBetween'
 import calendar from 'dayjs/plugin/calendar'
 import utc from 'dayjs/plugin/utc'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
+import updateLocale from 'dayjs/plugin/updateLocale'
+import timezone from 'dayjs/plugin/timezone'
 import duration, { Duration } from 'dayjs/plugin/duration'
-import { LOCALES } from '@/const/locales'
 import {
   IsoDate,
   UnixDate,
@@ -23,6 +24,9 @@ import {
   CalendarType,
 } from '@/types'
 
+// locales
+import ru from 'dayjs/locale/ru'
+
 dayjs.extend(isSameOrBefore)
 dayjs.extend(isSameOrAfter)
 dayjs.extend(isBetween)
@@ -30,6 +34,44 @@ dayjs.extend(calendar)
 dayjs.extend(utc)
 dayjs.extend(duration)
 dayjs.extend(customParseFormat)
+dayjs.extend(updateLocale)
+dayjs.extend(timezone)
+
+dayjs.updateLocale('ru', {
+  weekdays: [
+    'Воскресенье',
+    'Понедельник',
+    'Вторник',
+    'Среда',
+    'Четверг',
+    'Пятница',
+    'Суббота',
+  ],
+  calendar: {
+    lastDay: '[Вчера в] H:mm',
+    sameDay: '[Сегодня в] H:mm',
+    nextDay: '[Завтра в] H:mm',
+    lastWeek: function (this: Dayjs): string {
+      const format = 'dddd H:mm'
+      switch (this.day()) {
+        case 0:
+          return `Прошлое ${this.format(format).toLowerCase()}`
+        case 3:
+        case 5:
+        case 6:
+          return `Прошлая ${this.format(format).toLowerCase()}`
+        default:
+          return `Прошлый ${this.format(format).toLowerCase()}`
+      }
+    },
+    nextWeek: 'dddd H:mm',
+    sameElse: 'D MMMM YYYY HH:mm',
+  },
+})
+
+const LOCALES: Record<string, ILocale> = {
+  ru,
+}
 
 export class DateUtil {
   private static _dayjs(date: ConfigType, format?: OptionType): Dayjs {
@@ -74,6 +116,10 @@ export class DateUtil {
 
   public static utc(date?: ConfigType, format?: OptionType): Dayjs {
     return this._dayjs(date, format).utc(true)
+  }
+
+  public static tz(date?: ConfigType, timezone?: string): Dayjs {
+    return dayjs.tz(date, timezone)
   }
 
   public static now(format?: OptionType): Dayjs {
@@ -210,5 +256,9 @@ export class DateUtil {
     return !object && typeof preset === 'string'
       ? dayjs.locale(LOCALES[preset])
       : dayjs.locale(preset, object, isLocal)
+  }
+
+  public static setDefaultTimezone(timezone?: string): void {
+    dayjs.tz.setDefault(timezone)
   }
 }
