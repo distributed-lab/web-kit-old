@@ -89,8 +89,7 @@ export class MathUtil {
   ): string {
     if (!this._isValidParams('big-divide', a, b)) return '0'
 
-    BigNumber.config({ ROUNDING_MODE: ROUND_TYPE })
-    BigNumber.config({ DECIMAL_PLACES: DECIMALS })
+    BigNumber.config({ ROUNDING_MODE: ROUND_TYPE, DECIMAL_PLACES: DECIMALS })
 
     const num = new BigNumber(new BigNumber(a).times(new BigNumber(ONE)))
     const denum = new BigNumber(new BigNumber(b).times(new BigNumber(ONE)))
@@ -117,8 +116,34 @@ export class MathUtil {
     fmt?: BigNumber.Format,
     DECIMALS = DECIMAL_PLACES,
     ROUND_TYPE: RoundingMode = ROUNDING_MODES.ROUND_UP,
-  ) {
+  ): string {
     return new BigNumber(value).toFormat(DECIMALS, ROUND_TYPE, fmt)
+  }
+
+  // toIntWithPrecision("10.123333", 6) => "10123333"
+  static toIntWithPrecision(
+    value: string,
+    DECIMALS = DECIMAL_PLACES,
+    ROUND_TYPE: RoundingMode = ROUNDING_MODES.ROUND_UP,
+  ): string {
+    BigNumber.config({ ROUNDING_MODE: ROUND_TYPE, DECIMAL_PLACES: DECIMALS })
+
+    return new BigNumber(value)
+      .dividedBy(new BigNumber(10).pow(-1 * DECIMALS))
+      .toString()
+  }
+
+  // toFloatFromIntWithPrecision("10123333", 6) => "10.123333"
+  static toFloatFromIntWithPrecision(
+    value: string,
+    DECIMALS = DECIMAL_PLACES,
+    ROUND_TYPE: RoundingMode = ROUNDING_MODES.ROUND_UP,
+  ): string {
+    BigNumber.config({ ROUNDING_MODE: ROUND_TYPE, DECIMAL_PLACES: DECIMALS })
+
+    return new BigNumber(value)
+      .dividedBy(new BigNumber(10).pow(DECIMALS))
+      .toFixed(DECIMALS)
   }
 
   static _isValidParams(_op: string, a: string, b: string, c = 0): boolean {
