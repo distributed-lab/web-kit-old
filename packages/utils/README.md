@@ -1,4 +1,4 @@
-****# @distributedlab/utils
+# @distributedlab/utils
 Typescript-based utils for Distributed Lab projects
 
 ![version (scoped package)](https://badgen.net/npm/v/@distributedlab/utils)
