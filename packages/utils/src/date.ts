@@ -8,12 +8,14 @@ import dayjs, {
 } from 'dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+import relativeTime from 'dayjs/plugin/relativeTime'
 import { IsoDate, UnixDate } from '@/types'
 
 export class DateUtil {
-  private static _dayjs(date: ConfigType, format?: OptionType): Dayjs {
+  private static _dayjs(date?: ConfigType, format?: OptionType): Dayjs {
     dayjs.extend(isSameOrBefore)
     dayjs.extend(isSameOrAfter)
+    dayjs.extend(relativeTime)
 
     return format ? dayjs(date, format) : dayjs(date)
   }
@@ -119,5 +121,21 @@ export class DateUtil {
       unit,
       isTruncated,
     )
+  }
+
+  public static relativeFrom(date: ConfigType): string {
+    return this._dayjs().from(date)
+  }
+
+  public static relativeFromNow(date: ConfigType): string {
+    return this._dayjs(date).fromNow()
+  }
+
+  public static relativeTo(date: ConfigType): string {
+    return this._dayjs().to(date)
+  }
+
+  public static relativeToNow(date: ConfigType): string {
+    return this._dayjs(date).toNow()
   }
 }
