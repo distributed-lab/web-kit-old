@@ -1,3 +1,3 @@
 export * from '@/bn'
-export * from '@/date'
+export * from '@/time'
 export * from '@/types'
