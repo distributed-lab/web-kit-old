@@ -26,11 +26,11 @@ export class Time {
     return dayjs(date, format)
   }
 
-  public dayjs(): Dayjs {
+  public get dayjs(): Dayjs {
     return this.#date
   }
 
-  public isValid(): boolean {
+  public get isValid(): boolean {
     return this.#date.isValid()
   }
 
@@ -38,11 +38,11 @@ export class Time {
     return new Time(this.#date.clone())
   }
 
-  public toTimestamp(): UnixDate {
+  public get timestamp(): UnixDate {
     return this.#date.unix()
   }
 
-  public toISO(): IsoDate {
+  public get ISO(): IsoDate {
     return this.#date.toISOString()
   }
 
@@ -104,22 +104,22 @@ export class Time {
     unit?: UnitType,
     isTruncated = false,
   ): number {
-    return this.#date.diff(comparisonDate.dayjs(), unit, isTruncated)
+    return this.#date.diff(comparisonDate.dayjs, unit, isTruncated)
   }
 
-  public from(date: ConfigType): string {
+  public getFrom(date: ConfigType): string {
     return this.#date.from(date)
   }
 
-  public fromNow(): string {
+  public get fromNow(): string {
     return this.#date.fromNow()
   }
 
-  public to(date: ConfigType): string {
+  public getTo(date: ConfigType): string {
     return this.#date.to(date)
   }
 
-  public toNow(): string {
+  public get toNow(): string {
     return this.#date.toNow()
   }
 }
