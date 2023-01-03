@@ -1,28 +1,29 @@
-import dayjs, {
-  Dayjs,
-  ConfigType,
-  OptionType,
-  OpUnitType,
-  UnitType,
-  ManipulateType,
-} from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { IsoDate, UnixDate } from '@/types'
+import {
+  IsoDate,
+  UnixDate,
+  TimeDate,
+  TimeFormat,
+  TimeOpUnit,
+  TimeUnit,
+  TimeManipulate,
+} from '@/types'
+
+dayjs.extend(isSameOrBefore)
+dayjs.extend(isSameOrAfter)
+dayjs.extend(relativeTime)
 
 export class Time {
   #date: Dayjs
 
-  constructor(date?: ConfigType, format?: OptionType) {
+  constructor(date?: TimeDate, format?: TimeFormat) {
     this.#date = this._dayjs(date, format)
   }
 
-  private _dayjs(date?: ConfigType, format?: OptionType): Dayjs {
-    dayjs.extend(isSameOrBefore)
-    dayjs.extend(isSameOrAfter)
-    dayjs.extend(relativeTime)
-
+  private _dayjs(date?: TimeDate, format?: TimeFormat): Dayjs {
     return dayjs(date, format)
   }
 
@@ -46,11 +47,11 @@ export class Time {
     return this.#date.toISOString()
   }
 
-  public get(unit: UnitType): number {
+  public get(unit: TimeUnit): number {
     return this.#date.get(unit)
   }
 
-  public getAsObject(unit: UnitType[]): {
+  public getAsObject(unit: TimeUnit[]): {
     [K in typeof unit[number]]: number
   } {
     return unit.reduce(
@@ -65,7 +66,7 @@ export class Time {
     )
   }
 
-  public add(value: number, unit?: ManipulateType): Time {
+  public add(value: number, unit?: TimeManipulate): Time {
     this.#date = this.#date.add(value, unit)
     return this
   }
@@ -74,40 +75,40 @@ export class Time {
     return this.#date.format(format)
   }
 
-  public subtract(value: number, unit?: ManipulateType): Time {
+  public subtract(value: number, unit?: TimeManipulate): Time {
     this.#date = this.#date.subtract(value, unit)
     return this
   }
 
-  public isSame(comparisonDate?: ConfigType, unit?: OpUnitType): boolean {
+  public isSame(comparisonDate?: TimeDate, unit?: TimeOpUnit): boolean {
     return this.#date.isSame(comparisonDate, unit)
   }
 
-  public isBefore(comparisonDate?: ConfigType): boolean {
+  public isBefore(comparisonDate?: TimeDate): boolean {
     return this.#date.isBefore(comparisonDate)
   }
 
-  public isAfter(comparisonDate?: ConfigType): boolean {
+  public isAfter(comparisonDate?: TimeDate): boolean {
     return this.#date.isAfter(comparisonDate)
   }
 
-  public isSameOrAfter(comparisonDate?: ConfigType): boolean {
+  public isSameOrAfter(comparisonDate?: TimeDate): boolean {
     return this.#date.isSameOrAfter(comparisonDate)
   }
 
-  public isSameOrBefore(comparisonDate?: ConfigType): boolean {
+  public isSameOrBefore(comparisonDate?: TimeDate): boolean {
     return this.#date.isSameOrBefore(comparisonDate)
   }
 
   public diff(
     comparisonDate: Time,
-    unit?: UnitType,
+    unit?: TimeUnit,
     isTruncated = false,
   ): number {
     return this.#date.diff(comparisonDate.dayjs, unit, isTruncated)
   }
 
-  public getFrom(date: ConfigType): string {
+  public getFrom(date: TimeDate): string {
     return this.#date.from(date)
   }
 
@@ -115,7 +116,7 @@ export class Time {
     return this.#date.fromNow()
   }
 
-  public getTo(date: ConfigType): string {
+  public getTo(date: TimeDate): string {
     return this.#date.to(date)
   }
 
@@ -124,5 +125,5 @@ export class Time {
   }
 }
 
-export const time = (date: ConfigType, format?: OptionType): Time =>
+export const time = (date: TimeDate, format?: TimeFormat): Time =>
   new Time(date, format)
