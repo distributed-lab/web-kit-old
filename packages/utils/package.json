@@ -1,7 +1,7 @@
 {
   "name": "@distributedlab/utils",
   "description": "Typescript-base utils for Distributed Lab projects",
-  "version": "2.1.0-rc.0",
+  "version": "3.0.0-rc.0",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
