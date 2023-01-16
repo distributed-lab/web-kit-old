@@ -30,18 +30,21 @@ export type JsonApiClientRequestConfig = AxiosRequestConfig
 
 export type JsonApiErrorMetaType = Record<string, unknown> | unknown[] | unknown
 
-export type JsonApiRelationship = Record<string, unknown>
-
-export type JsonApiRelationships = Record<
+export type JsonApiRelationship<T extends string> = Record<
   string,
-  JsonApiRelationship | JsonApiRelationship[]
+  JsonApiRecordBase<T>
+> &
+  JsonApiLinks
+
+export type JsonApiRelationships<T extends string = string> = Record<
+  string,
+  JsonApiRelationship<T>
 >
 
 // Can be used in client code to extend and cast own entity types
 export type JsonApiRecordBase<T extends string> = {
   id: string
   type: T
-  relationships?: JsonApiRelationships
 }
 
 export type JsonApiResponseLinks = {
@@ -84,3 +87,26 @@ export type JsonApiResponseNestedErrors = JsonApiResponseError[]
 export type JsonApiResponseErrors = {
   errors?: JsonApiResponseNestedErrors
 }
+
+export type JsonApiDefaultMeta = Record<string, unknown>
+
+export type JsonApiRecord = {
+  data: JsonApiRecordData
+  included?: JsonApiRecord[]
+} & JsonApiLinks
+
+export type JsonApiRecordData<T extends string = string> = Omit<
+  JsonApiRecordBase<T>,
+  'id'
+> &
+  Partial<Pick<JsonApiRecordBase<T>, 'id'>> &
+  JsonApiLinks & {
+    attributes?: JsonApiAttributes
+    relationships?: JsonApiRelationships
+  }
+
+export type JsonApiLinks = {
+  links?: { [key in JsonApiLinkFields]?: Endpoint }
+}
+
+export type JsonApiAttributes = Record<string, unknown>
