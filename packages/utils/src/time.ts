@@ -157,7 +157,7 @@ export class Time {
     startDate?: TimeDate,
     endDate?: TimeDate,
     unit?: TimeManipulate,
-    inclusivity?: Inclusivity
+    inclusivity?: Inclusivity,
   ): boolean {
     return this.#date.isBetween(startDate, endDate, unit, inclusivity)
   }
@@ -198,7 +198,10 @@ export class Time {
     dayjs.tz.setDefault(timezone)
   }
 
-  public static updateLocale(localeName: string, customConfig: TimeLocale): TimeLocale {
+  public static updateLocale(
+    localeName: string,
+    customConfig: TimeLocale,
+  ): TimeLocale {
     return dayjs.updateLocale(localeName, customConfig)
   }
 }
