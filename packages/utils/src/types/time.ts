@@ -98,14 +98,3 @@ export type TimeLocale = Partial<{
 export type TimeDurationUnitsObject = Partial<{
   [unit in Exclude<UnitTypeLongPlural, 'dates'> | 'weeks']: number
 }>
-
-// export type DurationUnits = Partial<{
-//   milliseconds: number
-//   seconds: number
-//   minutes: number
-//   hours: number
-//   days: number
-//   months: number
-//   years: number
-//   weeks: number
-// }>

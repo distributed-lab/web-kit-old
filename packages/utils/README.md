@@ -14,12 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <details><summary>Unreleased</summary>
   <h4>Added</h4>
-    <h5>New getters to Time</h5>
+    <h5>Getters to Time</h5>
     <ul>
       <li>ms()</li>
       <li>RFC3339()</li>
     </ul>
-    <h5>New methods to Time</h5>
+    <h5>Methods to Time</h5>
     <ul>
       <li>toCalendar()</li>
       <li>toDate()<li>
@@ -31,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
       <li>setDefaultTimezone()</li>
       <li>updateLocale()</li>
     </ul>
-    <h5>New class TimeDuration</h5>
+    <h5>Class TimeDuration</h5>
 </details>
 <details><summary>3.0.0-rc.0</summary>
   <h4>Change</h4>

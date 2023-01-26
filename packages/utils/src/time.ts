@@ -8,7 +8,7 @@ import utc from 'dayjs/plugin/utc'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import updateLocale from 'dayjs/plugin/updateLocale'
 import timezone from 'dayjs/plugin/timezone'
-import duration, { Duration } from 'dayjs/plugin/duration'
+import duration from 'dayjs/plugin/duration'
 import {
   IsoDate,
   UnixDate,
@@ -20,7 +20,6 @@ import {
   TimeManipulate,
   TimeCalendar,
   TimeLocale,
-  TimeDurationUnitsObject,
 } from '@/types'
 
 dayjs.extend(isSameOrAfter)
@@ -84,7 +83,7 @@ export class Time {
   }
 
   public get RFC3339(): IsoDate {
-    return this.#date.utc(true).format('YYYY-MM-DDTHH:mm:ss') + 'Z'
+    return this.#date.utc(true).format('YYYY-MM-DDTHH:mm:ss[Z]')
   }
 
   public get(unit: TimeUnit): number {
@@ -198,7 +197,7 @@ export class Time {
     dayjs.tz.setDefault(timezone)
   }
 
-  public static updateLocale(
+  public static setLocale(
     localeName: string,
     customConfig: TimeLocale,
   ): TimeLocale {
@@ -206,24 +205,9 @@ export class Time {
   }
 }
 
-export class TimeDuration {
-  #duration: Duration
 
-  constructor(units: TimeDurationUnitsObject) {
-    this.#duration = this._duration(units)
-  }
-
-  private _duration(units: TimeDurationUnitsObject): Duration {
-    return dayjs.duration(units)
-  }
-
-  public asMilliseconds(): UnixDate {
-    return this.#duration.asMilliseconds()
-  }
-}
 
 export const time = (date: TimeDate, format?: TimeFormat): Time =>
   new Time(date, format)
 
-export const timeDuration = (units: TimeDurationUnitsObject): TimeDuration =>
-  new TimeDuration(units)
+
