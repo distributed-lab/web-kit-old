@@ -2,19 +2,36 @@ import dayjs, { Dayjs } from 'dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import isBetween from 'dayjs/plugin/isBetween'
+import calendar from 'dayjs/plugin/calendar'
+import utc from 'dayjs/plugin/utc'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+import updateLocale from 'dayjs/plugin/updateLocale'
+import timezone from 'dayjs/plugin/timezone'
+import duration from 'dayjs/plugin/duration'
 import {
   IsoDate,
   UnixDate,
+  Inclusivity,
   TimeDate,
   TimeFormat,
   TimeOpUnit,
   TimeUnit,
   TimeManipulate,
+  TimeCalendar,
+  TimeLocale,
 } from '@/types'
 
-dayjs.extend(isSameOrBefore)
 dayjs.extend(isSameOrAfter)
+dayjs.extend(isSameOrBefore)
 dayjs.extend(relativeTime)
+dayjs.extend(isBetween)
+dayjs.extend(calendar)
+dayjs.extend(utc)
+dayjs.extend(customParseFormat)
+dayjs.extend(updateLocale)
+dayjs.extend(timezone)
+dayjs.extend(duration)
 
 export class Time {
   #date: Dayjs
@@ -27,8 +44,22 @@ export class Time {
     return dayjs(date, format)
   }
 
+  private _tz(date: TimeDate, timezone?: string) {
+    return dayjs.tz(date, timezone)
+  }
+
   public get dayjs(): Dayjs {
     return this.#date
+  }
+
+  public tz(timezone?: string): Time {
+    this.#date = this._tz(this.#date, timezone)
+    return this
+  }
+
+  public utc(keepLocalTime?: boolean): Time {
+    this.#date = this.#date.utc(keepLocalTime)
+    return this
   }
 
   public get isValid(): boolean {
@@ -43,8 +74,16 @@ export class Time {
     return this.#date.unix()
   }
 
+  public get ms(): UnixDate {
+    return this.#date.valueOf()
+  }
+
   public get ISO(): IsoDate {
     return this.#date.toISOString()
+  }
+
+  public get RFC3339(): IsoDate {
+    return this.#date.utc(true).format('YYYY-MM-DDTHH:mm:ss[Z]')
   }
 
   public get(unit: TimeUnit): number {
@@ -75,8 +114,21 @@ export class Time {
     return this.#date.format(format)
   }
 
+  public toDate(): Date {
+    return this.#date.toDate()
+  }
+
+  public toCalendar(referenceTime?: TimeDate, calendar?: TimeCalendar): string {
+    return this.#date.calendar(referenceTime, calendar)
+  }
+
   public subtract(value: number, unit?: TimeManipulate): Time {
     this.#date = this.#date.subtract(value, unit)
+    return this
+  }
+
+  public startOf(unit: TimeOpUnit): Time {
+    this.#date = this.#date.startOf(unit)
     return this
   }
 
@@ -98,6 +150,15 @@ export class Time {
 
   public isSameOrBefore(comparisonDate?: TimeDate): boolean {
     return this.#date.isSameOrBefore(comparisonDate)
+  }
+
+  public isBetween(
+    startDate?: TimeDate,
+    endDate?: TimeDate,
+    unit?: TimeManipulate,
+    inclusivity?: Inclusivity,
+  ): boolean {
+    return this.#date.isBetween(startDate, endDate, unit, inclusivity)
   }
 
   public diff(
@@ -122,6 +183,25 @@ export class Time {
 
   public get toNow(): string {
     return this.#date.toNow()
+  }
+
+  public static locale(
+    preset?: string | ILocale,
+    object?: Partial<ILocale>,
+    isLocal?: boolean,
+  ): string {
+    return dayjs.locale(preset, object, isLocal)
+  }
+
+  public static setDefaultTimezone(timezone?: string): void {
+    dayjs.tz.setDefault(timezone)
+  }
+
+  public static setLocale(
+    localeName: string,
+    customConfig: TimeLocale,
+  ): TimeLocale {
+    return dayjs.updateLocale(localeName, customConfig)
   }
 }
 
