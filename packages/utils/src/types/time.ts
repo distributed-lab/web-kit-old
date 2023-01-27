@@ -1,4 +1,4 @@
-import { Dayjs, UnitTypeLongPlural } from 'dayjs'
+import { Dayjs } from 'dayjs'
 
 export type IsoDate = string // RFC3339Nano ISO Date String
 
@@ -96,5 +96,7 @@ export type TimeLocale = Partial<{
 }>
 
 export type DurationUnitsObject = Partial<{
-  [unit in Exclude<UnitTypeLongPlural, 'dates'> | 'weeks']: number
+  [unit in Exclude<TimeUnitLongPlural, 'dates'> | 'weeks']: number
 }>
+
+export type DurationUnitType = Exclude<TimeUnit, 'date' | 'dates'>
