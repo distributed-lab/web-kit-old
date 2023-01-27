@@ -40,6 +40,25 @@ export class Time {
     this.#date = this._dayjs(date, format)
   }
 
+  public static locale(
+    preset?: string | ILocale,
+    object?: Partial<ILocale>,
+    isLocal?: boolean,
+  ): string {
+    return dayjs.locale(preset, object, isLocal)
+  }
+
+  public static setDefaultTimezone(timezone?: string): void {
+    dayjs.tz.setDefault(timezone)
+  }
+
+  public static setLocale(
+    localeName: string,
+    customConfig: TimeLocale,
+  ): TimeLocale {
+    return dayjs.updateLocale(localeName, customConfig)
+  }
+
   private _dayjs(date?: TimeDate, format?: TimeFormat): Dayjs {
     return dayjs(date, format)
   }
@@ -74,7 +93,7 @@ export class Time {
     return this.#date.unix()
   }
 
-  public get ms(): UnixDate {
+  public get ms(): number {
     return this.#date.valueOf()
   }
 
@@ -183,25 +202,6 @@ export class Time {
 
   public get toNow(): string {
     return this.#date.toNow()
-  }
-
-  public static locale(
-    preset?: string | ILocale,
-    object?: Partial<ILocale>,
-    isLocal?: boolean,
-  ): string {
-    return dayjs.locale(preset, object, isLocal)
-  }
-
-  public static setDefaultTimezone(timezone?: string): void {
-    dayjs.tz.setDefault(timezone)
-  }
-
-  public static setLocale(
-    localeName: string,
-    customConfig: TimeLocale,
-  ): TimeLocale {
-    return dayjs.updateLocale(localeName, customConfig)
   }
 }
 
