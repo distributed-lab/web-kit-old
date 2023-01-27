@@ -12,26 +12,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+<details><summary>3.1.0</summary>
+  <h4>Fixed</h4>
+    <ul>
+      <li>duration() type</li>
+    </ul>
+</details>
 <details><summary>3.0.0</summary>
   <h4>Added</h4>
-    <h5>Getters to Time</h5>
     <ul>
-      <li>ms()</li>
-      <li>RFC3339()</li>
+      <li>Duration class</li>
     </ul>
-    <h5>Methods to Time</h5>
+  <h4>Changed</h4>
     <ul>
-      <li>toCalendar()</li>
-      <li>toDate()<li>
-      <li>utc()</li>
-      <li>tz()</li>
-      <li>startOf()</li>
-      <li>isBetween()</li>
-      <li>locale()</li>
-      <li>setDefaultTimezone()</li>
-      <li>updateLocale()</li>
+      <li>Extended Time class with new functionality</li>
     </ul>
-    <h5>Class Duration</h5>
 </details>
 <details><summary>3.0.0-rc.0</summary>
   <h4>Change</h4>

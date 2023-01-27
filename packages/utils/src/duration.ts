@@ -1,19 +1,29 @@
-import { Duration as DurationPlugin } from 'dayjs/plugin/duration'
-import { DurationUnitsObject } from '@/types'
+import { Duration as _Duration } from 'dayjs/plugin/duration'
+import { DurationUnitsObject, DurationUnitType } from '@/types'
 import dayjs from 'dayjs'
 
 export class Duration {
-  readonly #duration: DurationPlugin
+  readonly #duration: _Duration
 
-  constructor(units: DurationUnitsObject) {
-    this.#duration = this._duration(units)
+  constructor(
+    input: DurationUnitsObject | number | string | undefined,
+    unit?: DurationUnitType | undefined,
+  ) {
+    this.#duration = this._duration(input, unit)
   }
 
-  private _duration(units: DurationUnitsObject): DurationPlugin {
-    return dayjs.duration(units)
+  private _duration(
+    input?: DurationUnitsObject | number | string,
+    unit?: DurationUnitType,
+  ): _Duration {
+    if (typeof input == 'number') return dayjs.duration(input as number, unit)
+
+    if (typeof input == 'string') return dayjs.duration(input as string)
+
+    return dayjs.duration(input as DurationUnitsObject)
   }
 
-  public get duration(): DurationPlugin {
+  public get duration(): _Duration {
     return this.#duration
   }
 
@@ -90,5 +100,12 @@ export class Duration {
   }
 }
 
-export const duration = (units: DurationUnitsObject): Duration =>
-  new Duration(units)
+export function duration(units: DurationUnitsObject): Duration
+export function duration(time: number, unit?: DurationUnitType): Duration
+export function duration(ISO_8601: string): Duration
+export function duration(
+  input?: DurationUnitsObject | number | string,
+  unit?: DurationUnitType,
+): Duration {
+  return new Duration(input, unit)
+}
