@@ -95,6 +95,6 @@ export type TimeLocale = Partial<{
   calendar: TimeCalendar
 }>
 
-export type TimeDurationUnitsObject = Partial<{
+export type DurationUnitsObject = Partial<{
   [unit in Exclude<UnitTypeLongPlural, 'dates'> | 'weeks']: number
 }>

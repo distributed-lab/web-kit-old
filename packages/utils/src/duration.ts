@@ -1,40 +1,40 @@
-import { Duration } from 'dayjs/plugin/duration'
-import { TimeDurationUnitsObject, UnixDate } from '@/types'
+import { Duration as DurationPlugin } from 'dayjs/plugin/duration'
+import { DurationUnitsObject } from '@/types'
 import dayjs from 'dayjs'
 
-export class TimeDuration {
-  #duration: Duration
+export class Duration {
+  #duration: DurationPlugin
 
-  constructor(units: TimeDurationUnitsObject) {
+  constructor(units: DurationUnitsObject) {
     this.#duration = this._duration(units)
   }
 
-  private _duration(units: TimeDurationUnitsObject): Duration {
+  private _duration(units: DurationUnitsObject): DurationPlugin {
     return dayjs.duration(units)
   }
 
-  public asMilliseconds(): UnixDate {
+  public get Milliseconds(): number {
     return this.#duration.asMilliseconds()
   }
-  public asSeconds(): UnixDate {
+  public get Seconds(): number {
     return this.#duration.asSeconds()
   }
-  public asMinutes(): UnixDate {
+  public get Minutes(): number {
     return this.#duration.asMinutes()
   }
-  public asHours(): UnixDate {
+  public get Hours(): number {
     return this.#duration.asHours()
   }
-  public asDays(): UnixDate {
+  public get Days(): number {
     return this.#duration.asDays()
   }
-  public asWeeks(): UnixDate {
+  public get Weeks(): number {
     return this.#duration.asWeeks()
   }
-  public asMonths(): UnixDate {
+  public get Months(): number {
     return this.#duration.asMonths()
   }
-  public asYears(): UnixDate {
+  public get Years(): number {
     return this.#duration.asYears()
   }
   public humanize(): string {
@@ -42,5 +42,5 @@ export class TimeDuration {
   }
 }
 
-export const timeDuration = (units: TimeDurationUnitsObject): TimeDuration =>
-  new TimeDuration(units)
+export const duration = (units: DurationUnitsObject): Duration =>
+  new Duration(units)
