@@ -37,7 +37,7 @@ export class Duration {
   public get Years(): number {
     return this.#duration.asYears()
   }
-  public humanize(): string {
+  public get humanized(): string {
     return this.#duration.humanize()
   }
 }

@@ -31,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
       <li>setDefaultTimezone()</li>
       <li>updateLocale()</li>
     </ul>
-    <h5>Class TimeDuration</h5>
+    <h5>Class Duration</h5>
 </details>
 <details><summary>3.0.0-rc.0</summary>
   <h4>Change</h4>
