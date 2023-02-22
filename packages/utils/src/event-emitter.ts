@@ -20,20 +20,12 @@ export class EventEmitter<T extends EventMap> {
   }
 
   public off<K extends EventMapKey<T>>(key: K, fn: EventHandler<T[K]>): void {
-    this.#checkEvent(key)
     this.#handlers[key] = (this.#handlers[key] || [])?.filter(f => f !== fn)
   }
 
-  public emit<K extends EventMapKey<T>>(key: K, data: T[K]): void {
-    this.#checkEvent(key)
+  public emit<K extends EventMapKey<T>>(key: K, data: T[K]): void | never {
     ;(this.#handlers[key] || [])?.forEach((fn: EventHandler<T[K]>) => {
       fn(data)
     })
-  }
-
-  #checkEvent<K extends EventMapKey<T>>(key: K): void {
-    if (!this.#handlers[key]?.length) {
-      throw new TypeError(`Handlers for the event: ${key} not found`)
-    }
   }
 }
