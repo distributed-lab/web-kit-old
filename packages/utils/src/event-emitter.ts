@@ -28,4 +28,8 @@ export class EventEmitter<T extends EventMap> {
       fn(data)
     })
   }
+
+  public clear(): void {
+    this.#handlers = {}
+  }
 }
