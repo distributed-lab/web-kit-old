@@ -4,7 +4,9 @@ JSON API client
 ![version (scoped package)](https://badgen.net/npm/v/@distributedlab/json-api-client)
 ![types](https://badgen.net/npm/types/@distributedlab/json-api-client)
 ![tree-shaking](https://badgen.net/bundlephobia/tree-shaking/@distributedlab/json-api-client)
-![checks](https://badgen.net/github/checks/distributed-lab/web-kit/main)
+![checks](https://badgen.net/github/checks/distributed-lab/web-kit-old/main)
+
+### This package moved to the [new repository](https://github.com/distributed-lab/web-kit) and not be maintained anymore.
 
 ## Usage
 #### Bearer token
@@ -98,6 +100,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+<details><summary>2.2.1</summary>
+  <h4>Change</h4>
+    <ul>
+      <li>Deprecate package</li>
+    </ul>
+</details>
 <details><summary>2.2.0</summary>
   <h4>Added</h4>
   <ul>
